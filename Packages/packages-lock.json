@@ -1,5 +1,36 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a77a1b4a89824fb6df293099de3060daf2a432c1"
+    },
+    "com.github-glitchenzo.nugetforunity": {
+      "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4a2d9c8e6a4f0fa50ecb24ec2d14ae588b1951da"
+    },
+    "com.mackysoft.serializereference-extensions": {
+      "version": "https://github.com/mackysoft/Unity-SerializeReferenceExtensions.git?path=Assets/MackySoft/MackySoft.SerializeReferenceExtensions",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "cfefa0d9cba48a04ef65bea1bd2604c991a780c2"
+    },
+    "com.t0m0.corekit": {
+      "version": "https://github.com/TomokiSatokawa/CoreKitLibrary.git?path=/Packages/com.t0m0.corekit",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.inputsystem": "1.14.0",
+        "com.cysharp.unitask": "2.5.11"
+      },
+      "hash": "98ee36fbf55e2999e1e646dfb582571609c32979"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.10",
       "depth": 0,

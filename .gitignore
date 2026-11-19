@@ -138,3 +138,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
 /[Aa]ssets/Demo*
+Assets/Packages/
+Assets/Plugins/
