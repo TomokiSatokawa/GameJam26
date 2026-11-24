@@ -140,3 +140,6 @@ crashlytics-build.properties
 /[Aa]ssets/Demo*
 Assets/Packages/
 Assets/Plugins/
+Assets/TextMesh Pro/
+Assets/Audio/
+Assets/Graphic/
