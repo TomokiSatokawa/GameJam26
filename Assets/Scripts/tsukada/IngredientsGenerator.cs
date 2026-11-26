@@ -18,7 +18,8 @@ public class IngredientsGenerator : MonoBehaviour
     [Header("参照")]
     [SerializeField] private float _groupRange;
     [SerializeField] private ToppingCounter _toppingCounter;
-    [SerializeField] private CameraWork _cameraWork; // ★追加：カメラワークをセット
+    [SerializeField] private CameraWork _cameraWork;
+    [SerializeField] private PrefabSpawner _prefabSpawner;
 
     public readonly FlagRegistry IgnoreInput = new();
 
@@ -42,7 +43,6 @@ public class IngredientsGenerator : MonoBehaviour
         }
     }
 
-    // ★追加：ペナルティイベントの登録
     private void OnEnable()
     {
         if (_toppingCounter != null)
@@ -51,7 +51,6 @@ public class IngredientsGenerator : MonoBehaviour
         }
     }
 
-    // ★追加：ペナルティイベントの解除
     private void OnDisable()
     {
         if (_toppingCounter != null)
@@ -60,7 +59,6 @@ public class IngredientsGenerator : MonoBehaviour
         }
     }
 
-    // ★追加：ペナルティ発生時にカメラを揺らす（＝同時にIsInputLockedがtrueになる）
     private void OnPenalty()
     {
         if (_cameraWork != null)
@@ -71,7 +69,7 @@ public class IngredientsGenerator : MonoBehaviour
 
     private void Update()
     {
-        // ★追加：カメラがシェイク中（ペナルティ硬直中）はキー入力を無視する
+        // カメラがシェイク中（ペナルティ硬直中）はキー入力を無視する
         if (_cameraWork != null && _cameraWork.IsInputLocked)
         {
             return;
@@ -79,7 +77,7 @@ public class IngredientsGenerator : MonoBehaviour
 
         if (IgnoreInput.Flag)
             return;
-            
+
         if (InputService.Player.Yasai.Down)
             InputYasai();
 
@@ -112,6 +110,9 @@ public class IngredientsGenerator : MonoBehaviour
     {
         if (prefabGroupDictionary.TryGetValue(ingredients, out List<SpawnPrefab> items))
         {
+            // 今カメラが映している中央のステージを取得
+            StageUnit currentStage = _prefabSpawner != null ? _prefabSpawner.CurrentStage : null;
+
             foreach (SpawnPrefab item in items)
             {
                 if (item.prefab == null) continue;
@@ -119,7 +120,13 @@ public class IngredientsGenerator : MonoBehaviour
                 for (int i = 0; i < item.count; i++)
                 {
                     Vector3 clonePosition = spawnPoint.position + Random.insideUnitSphere * _groupRange;
-                    Instantiate(item.prefab, clonePosition, Random.rotation);
+                    GameObject spawned = Instantiate(item.prefab, clonePosition, Random.rotation);
+
+                    // 現在のステージに具材を紐づける（ステージ再利用時に自動で消える）
+                    if (currentStage != null)
+                    {
+                        currentStage.RegisterIngredient(spawned);
+                    }
                 }
             }
 

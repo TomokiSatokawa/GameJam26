@@ -1,31 +1,25 @@
 using System;
-using UnityEngine;
 using R3;
+using UnityEngine;
 
-/// <summary>
-/// トッピングの数を数え、注文との超過・コンプリートを判定して通知する
-/// </summary>
 public class ToppingCounter : MonoBehaviour
 {
-    private readonly ReactiveProperty<int> _ninnikuCount = new();
-    private readonly ReactiveProperty<int> _yasaiCount = new();
-    private readonly ReactiveProperty<int> _aburaCount = new();
-
-    private OrderData _currentData;
+    private readonly ReactiveProperty<int> _ninnikuCount = new(0);
+    private readonly ReactiveProperty<int> _yasaiCount = new(0);
+    private readonly ReactiveProperty<int> _aburaCount = new(0);
 
     public ReadOnlyReactiveProperty<int> NinnikuCount => _ninnikuCount;
     public ReadOnlyReactiveProperty<int> YasaiCount => _yasaiCount;
     public ReadOnlyReactiveProperty<int> AburaCount => _aburaCount;
 
+    private OrderData _currecntData;
+
     public event Action penalty;
     public event Action Completed;
 
-    /// <summary>
-    /// 注文データを設定し、カウントをリセットする
-    /// </summary>
     public void SetData(OrderData orderData)
     {
-        _currentData = orderData;
+        _currecntData = orderData;
         _ninnikuCount.Value = 0;
         _yasaiCount.Value = 0;
         _aburaCount.Value = 0;
@@ -33,41 +27,60 @@ public class ToppingCounter : MonoBehaviour
 
     public void AddNinniku(int amount = 1)
     {
-        AddCount(_ninnikuCount, amount, _currentData.NinnikuCount);
-    }
-
-    public void AddYasai(int amount = 1)
-    {
-        AddCount(_yasaiCount, amount, _currentData.YasaiCount);
-    }
-
-    public void AddAbura(int amount = 1)
-    {
-        AddCount(_aburaCount, amount, _currentData.AburaCount);
+        if (_currecntData == null) return;
+        ProcessTopping(_ninnikuCount, _currecntData.NinnikuCount, amount, ScoreManager.AddNinniku);
     }
 
     /// <summary>
-    /// 注文数を超える場合はpenaltyを通知し、超えない場合は加算してコンプリート確認を行う
+    /// 野菜のスコアを加算する
     /// </summary>
-    private void AddCount(ReactiveProperty<int> currentCount, int amount, int maxCount)
+    public void AddYasai(int amount = 1)
     {
-        if (currentCount.Value + amount > maxCount)
-        {
-            penalty?.Invoke();
-            return;
-        }
-
-        currentCount.Value += amount;
-        CheckComplete();
+        if (_currecntData == null) return;
+        ProcessTopping(_yasaiCount, _currecntData.YasaiCount, amount, ScoreManager.AddYasai);
     }
 
-    private void CheckComplete()
+    /// <summary>
+    /// アブラのスコアを加算する
+    /// </summary>
+    public void AddAbura(int amount = 1)
     {
-        var isComplete = _ninnikuCount.Value == _currentData.NinnikuCount
-                         && _yasaiCount.Value == _currentData.YasaiCount
-                         && _aburaCount.Value == _currentData.AburaCount;
+        if (_currecntData == null) return;
+        ProcessTopping(_aburaCount, _currecntData.AburaCount, amount, ScoreManager.AddAbura);
+    }
 
-        if (isComplete)
+    private void ProcessTopping(ReactiveProperty<int> targetCount, int maxCount, int amount, Action<int> addScoreAction)
+    {
+        int nextCount = targetCount.Value + amount;
+
+        if (nextCount <= maxCount)
+        {
+            // 上限以内ならカウントとスコアを更新し、完了チェックを行う
+            targetCount.Value = nextCount;
+            addScoreAction?.Invoke(amount);
+            CheckCompleted();
+        }
+        else
+        {
+            // ★修正ポイント：上限を超えた場合はカウントを増やさず（maxCountのまま維持）、ペナルティだけ発火する
+            penalty?.Invoke();
+        }
+    }
+
+    private void CheckCompleted()
+    {
+        if (_ninnikuCount.Value == _currecntData.NinnikuCount &&
+            _yasaiCount.Value == _currecntData.YasaiCount &&
+            _aburaCount.Value == _currecntData.AburaCount)
+        {
             Completed?.Invoke();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _ninnikuCount.Dispose();
+        _yasaiCount.Dispose();
+        _aburaCount.Dispose();
     }
 }
