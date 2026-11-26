@@ -5,14 +5,14 @@ using UnityEngine;
 /// <summary> 具材を生成するクラス </summary>
 public class IngredientsGenerator : MonoBehaviour
 {
-    [Header("入力とPrefabのマッピング設定")]
+    [Header("入力とPrefabグループのマッピング設定")]
     [SerializeField] private List<ActionPrefabMapping> actionMappings;
 
     [Header("生成位置")]
     [SerializeField] private Transform spawnPoint;
 
-    // 具材とprefabの辞書
-    private Dictionary<Ingredients, GameObject> prefabDictionary;
+    // 具材と「生成アイテムリスト」の辞書に変更
+    private Dictionary<Ingredients, List<SpawnPrefab>> prefabGroupDictionary;
 
     #region InputServiceイベント
     private IDisposable _yasai;
@@ -23,17 +23,17 @@ public class IngredientsGenerator : MonoBehaviour
     private void Awake()
     {
         // リストの内容をDictionaryに変換してキャッシュする
-        prefabDictionary = new Dictionary<Ingredients, GameObject>();
+        prefabGroupDictionary = new Dictionary<Ingredients, List<SpawnPrefab>>();
 
         foreach (ActionPrefabMapping mapping in actionMappings)
         {
-            if (!prefabDictionary.ContainsKey(mapping.ingradient))
+            if (!prefabGroupDictionary.ContainsKey(mapping.ingredient))
             {
-                prefabDictionary.Add(mapping.ingradient, mapping.ingradientPrefab);
+                prefabGroupDictionary.Add(mapping.ingredient, mapping.spawnPrefabs);
             }
             else
             {
-                Debug.LogWarning($"重複したIngredientsが設定されています: {mapping.ingradient}");
+                Debug.LogWarning($"重複したIngredientsが設定されています: {mapping.ingredient}");
             }
         }
     }
@@ -52,45 +52,40 @@ public class IngredientsGenerator : MonoBehaviour
         _abura?.Dispose();
     }
 
-    public void InputYasai()
-    {
-        SpawnPrefabByInput(Ingredients.Yasai);
-    }
+    public void InputYasai() => SpawnPrefabGroupByInput(Ingredients.Yasai);
+    public void InputNinniku() => SpawnPrefabGroupByInput(Ingredients.Ninniku);
+    public void InputAbura() => SpawnPrefabGroupByInput(Ingredients.Abura);
 
-    public void InputNinniku()
+    // 指定したenumに対応するPrefabグループをすべて生成する処理
+    public void SpawnPrefabGroupByInput(Ingredients ingredients)
     {
-        SpawnPrefabByInput(Ingredients.Ninniku);
-    }
-
-    public void InputAbura()
-    {
-        SpawnPrefabByInput(Ingredients.Abura);
-    }
-
-    //指定したenumに対応するPrefabを生成する処理
-    public void SpawnPrefabByInput(Ingredients ingredients)
-    {
-        if (prefabDictionary.TryGetValue(ingredients, out GameObject targetPrefab))
+        if (prefabGroupDictionary.TryGetValue(ingredients, out List<SpawnPrefab> items))
         {
-            if (targetPrefab != null)
+            // 登録されているアイテムの種類ごとにループ
+            foreach (SpawnPrefab item in items)
             {
-                Instantiate(targetPrefab, spawnPoint.position, Quaternion.identity);
+                if (item.prefab == null) continue;
+
+                // 指定された個数(count)分だけ生成する
+                for (int i = 0; i < item.count; i++)
+                {
+                    Instantiate(item.prefab, spawnPoint.position, UnityEngine.Random.rotation);
+                }
             }
         }
         else
         {
-            Debug.LogWarning($"{ingredients} に対応するPrefabが登録されていません。");
+            Debug.LogWarning($"{ingredients} に対応するPrefabグループが登録されていません。");
         }
     }
 
-
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
 }
