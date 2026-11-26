@@ -14,6 +14,7 @@ public class CameraWork : MonoBehaviour
     [SerializeField] private Transform _cameraTransform;
 
     [Header("シェイク設定")]
+    [SerializeField] private float _penaltyDuration;
     [SerializeField] private float _shakeDuration = 0.3f;
     [SerializeField] private float _shakeStrength = 0.5f;
     [SerializeField] private int _shakeVibrato = 20;
@@ -46,7 +47,7 @@ public class CameraWork : MonoBehaviour
         IsInputLocked = true;
         try
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(Mathf.Max(duration, _penaltyDuration)), cancellationToken: token);
         }
         finally
         {
