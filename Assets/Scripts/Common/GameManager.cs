@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public enum GameState //ゲームの進行状態
     {
         Playing,
+        Moving,
         Result
     }
 
@@ -16,7 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpeechBubble _speechBubble;
     [SerializeField] private OrderFormatter _orderFormatter;
     [SerializeField] private ToppingCounter _toppingCounter;
-    [SerializeField] private PrefabSpawner _prefabSpawner;  
+    [SerializeField] private PrefabSpawner _prefabSpawner;
+    [SerializeField] private IngredientsGenerator _ingredientsGenerator;
     [SerializeField] private int _maxCount;
     //public BubbleSpawner bubbleSpawner;
     //public MistakeChecker mistakeChecker;
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
         var orderData = new OrderData(_maxCount);
         _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData), orderData);
         _toppingCounter.SetData(orderData);
+        timerManager.ResetCustomerTimer(); //お客の制限時間を10秒に戻す
     }
 
     public void EndGame() //ゲームを終了してリザルトにする
@@ -50,19 +53,18 @@ public class GameManager : MonoBehaviour
 
     public async UniTaskVoid EndCustomer()
     {
+        if (currentState != GameState.Playing)
+            return;
+        currentState = GameState.Moving;
         _speechBubble.HideSpeechBubble();
         _prefabSpawner.SpawnNext();
         timerManager.PauseTimer(false);
-        AddCustomer();
+        var token = _ingredientsGenerator.IgnoreInput.RegisterFlag();
+        ScoreManager.AddCustomer(); //提供したお客の人数を増やす
         await _cameraWork.Slide();
         timerManager.PauseTimer(true);
         InitializeCustomer();
-        _prefabSpawner.SpawnNext();
-    }
-
-    public void AddCustomer() //提供したお客の人数を増やす
-    {
-        ScoreManager.AddCustomer();
-        timerManager.ResetCustomerTimer(); //お客の制限時間を10秒に戻す
+        _ingredientsGenerator.IgnoreInput.UnregisterFlag(token);
+        currentState = GameState.Playing;
     }
 }

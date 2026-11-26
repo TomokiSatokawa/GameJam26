@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraWork : MonoBehaviour
 {
     [Header("スライド設定")]
+    [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private float _slideAmount;
     [SerializeField] private float _slideDuration;
     [SerializeField] private Ease _animationEase;
@@ -17,8 +18,7 @@ public class CameraWork : MonoBehaviour
     public float SlideAmount => Mathf.Abs(_slideAmount);
     public async UniTask Slide()
     {
-        float targetX = _cameraTransform.position.x + SlideAmount;
-        await _cameraTransform.DOMoveX(this.transform.position.x + _slideAmount, _slideDuration).SetEase(_animationEase);
+        await _cameraTransform.DOMoveX(_prefabSpawner.CurrentPosition.x, _slideDuration).SetEase(_animationEase);
     }
     public void Shake()
     {
