@@ -19,6 +19,7 @@ public class CameraWork : MonoBehaviour
     [SerializeField] private float _shakeStrength = 0.5f;
     [SerializeField] private int _shakeVibrato = 20;
 
+    public float SildeDuration => _slideDuration;
     public float SlideAmount => Mathf.Abs(_slideAmount);
 
     public bool IsInputLocked { get; private set; }

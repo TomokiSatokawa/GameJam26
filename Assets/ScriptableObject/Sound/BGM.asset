@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3e51d6f13f77d4291f8b3766fb8243, type: 3}
   m_Name: BGM
   m_EditorClassIdentifier: CoreKit::CoreKit.DynamicEnum.DynamicEnumDefinition
-  _className: NewDynamicEnum
+  _className: BGMType
   _entries:
   - Name: TItleBGM
     Guid: dcea3ac952184b6d91fcc86ffa7a21b3
   - Name: InGameBGM
     Guid: 0be923385f2c4aebac67ba0a984ea57d
-  _previousClassName: 
+  _previousClassName: BGMType

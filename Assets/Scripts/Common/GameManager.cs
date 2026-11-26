@@ -1,5 +1,7 @@
 using Common.Order;
+using Common.Sound;
 using Cysharp.Threading.Tasks;
+using Generated.DynamicEnums;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -19,6 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ToppingCounter _toppingCounter;
     [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private IngredientsGenerator _ingredientsGenerator;
+    [SerializeField] private CountdownView _countdownView;
+    [SerializeField] private OrderLevelDatabase _orderLevelDatabase;
     [SerializeField] private int _maxCount;
     [SerializeField] private float _waitTime;
     //public BubbleSpawner bubbleSpawner;
@@ -27,20 +31,33 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
-        ScoreManager.ResetScore();
-        timerManager.StartTimer();
-        InitializeCustomer();
+        Initialize().Forget();
+    }
 
-        _toppingCounter.penalty += () => Debug.Log("Miss");
+    private async UniTaskVoid Initialize()
+    {
+        _speechBubble.HideSpeechBubbleImmediate();
+        timerManager.StartTimer();
+        ScoreManager.ResetScore();
+        timerManager.PauseTimer(false);
+
+        await _countdownView.PlayAsync(destroyCancellationToken);
+
+        SoundManager.BGM.Play(BGMType.InGameBGM);
+
+        timerManager.PauseTimer(true);
+        currentState = GameState.Playing;
+        ResetCustomer();
+
+        _toppingCounter.penalty += () => SoundManager.SE.PlayOneShot(SEType.Miss);
         _toppingCounter.Completed += () => EndCustomer().Forget();
         timerManager.OnGameTimerEnd += EndGame;
         timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
     }
 
-    private void InitializeCustomer()
+    private void ResetCustomer()
     {
-        var orderData = new OrderData(_maxCount);
+        var orderData = _orderLevelDatabase.CreateOrderData(ScoreManager.CustomerCount);
         _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData), orderData);
         _toppingCounter.SetData(orderData);
         timerManager.ResetCustomerTimer(); //お客の制限時間を10秒に戻す
@@ -56,6 +73,9 @@ public class GameManager : MonoBehaviour
     {
         if (currentState != GameState.Playing)
             return;
+
+        SoundManager.SE.PlayOneShot(SEType.CustomerClear);
+
         currentState = GameState.Moving;
         _speechBubble.HideSpeechBubble();
         _prefabSpawner.SpawnNext();
@@ -63,9 +83,16 @@ public class GameManager : MonoBehaviour
         var token = _ingredientsGenerator.IgnoreInput.RegisterFlag();
         ScoreManager.AddCustomer(); //提供したお客の人数を増やす
         await UniTask.WaitForSeconds(_waitTime);
-        await _cameraWork.Slide();
+
+        async UniTask CustmerAsync()
+        {
+            await UniTask.WaitForSeconds(_cameraWork.SildeDuration / 2);
+            ResetCustomer();
+        }
+
+        await UniTask.WhenAll(_cameraWork.Slide(), CustmerAsync());
+
         timerManager.PauseTimer(true);
-        InitializeCustomer();
         _ingredientsGenerator.IgnoreInput.UnregisterFlag(token);
         currentState = GameState.Playing;
     }

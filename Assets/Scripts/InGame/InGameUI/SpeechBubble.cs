@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using R3;
+using Common.Sound;
+using Generated.DynamicEnums;
 
 public class SpeechBubble : MonoBehaviour
 {
@@ -41,6 +43,13 @@ public class SpeechBubble : MonoBehaviour
     [Tooltip("無効（まだ足りない）アイコンの色")]
     [SerializeField] private Color _invalidColor = new Color(1f, 1f, 1f, 0.3f);
 
+    [Header("はみ出し対策")]
+    [Tooltip("アイコンのスケールxを縮める下限")]
+    [SerializeField, Range(0.1f, 1f)] private float _minIconScaleX = 0.3f;
+
+    private HorizontalLayoutGroup _layoutGroup;
+    private float _defaultSpacing;
+
     private readonly List<Image> _yasaiImages = new();
     private readonly List<Image> _ninnikuImages = new();
     private readonly List<Image> _aburaImages = new();
@@ -56,6 +65,9 @@ public class SpeechBubble : MonoBehaviour
         _toppingCounter.YasaiCount.Subscribe(x => UpdateIconValid(x, _yasaiImages)).RegisterTo(destroyCancellationToken);
         _toppingCounter.NinnikuCount.Subscribe(x => UpdateIconValid(x, _ninnikuImages)).RegisterTo(destroyCancellationToken);
         _toppingCounter.AburaCount.Subscribe(x => UpdateIconValid(x, _aburaImages)).RegisterTo(destroyCancellationToken);
+
+        _layoutGroup = _iconContainer.GetComponent<HorizontalLayoutGroup>();
+        _defaultSpacing = _layoutGroup.spacing;
     }
 
     public void ShowSpeechBubble(string input, OrderData data)
@@ -68,6 +80,7 @@ public class SpeechBubble : MonoBehaviour
         _speechBubble.anchoredPosition = _defaultPos + _startOffset;
 
         UpdateIcons(data);
+        SoundManager.SE.PlayOneShot(SEType.Call);
 
         _sequence = DOTween.Sequence()
            .Join(_canvasGroup.DOFade(1f, _duration).SetEase(Ease.OutQuad))
@@ -82,6 +95,17 @@ public class SpeechBubble : MonoBehaviour
            .Join(_canvasGroup.DOFade(0f, _duration).SetEase(Ease.InQuad))
            .Join(_speechBubble.DOAnchorPos(_defaultPos + _startOffset, _duration).SetEase(Ease.InBack));
     }
+    
+    /// <summary>
+     /// アニメーションなしで吹き出しを即座に非表示にする
+     /// </summary>
+    public void HideSpeechBubbleImmediate()
+    {
+        _sequence?.Kill();
+
+        _canvasGroup.alpha = 0f;
+        _speechBubble.anchoredPosition = _defaultPos + _startOffset;
+    }
 
     private void UpdateIcons(OrderData data)
     {
@@ -94,7 +118,8 @@ public class SpeechBubble : MonoBehaviour
         SpawnIcons(_ninnikuSprite, data.NinnikuCount, _ninnikuImages);
         SpawnIcons(_aburaSprite, data.AburaCount, _aburaImages);
 
-        // 生成直後に、現在のトッピング数を反映する（購読は生成前に走っているため）
+        FitIconsToContainer();
+
         UpdateIconValid(_toppingCounter.YasaiCount.CurrentValue, _yasaiImages);
         UpdateIconValid(_toppingCounter.NinnikuCount.CurrentValue, _ninnikuImages);
         UpdateIconValid(_toppingCounter.AburaCount.CurrentValue, _aburaImages);
@@ -120,6 +145,42 @@ public class SpeechBubble : MonoBehaviour
         for (int i = 0; i < clonedList.Count; i++)
         {
             clonedList[i].color = i < count ? _validColor : _invalidColor;
+        }
+    }
+    
+    /// <summary>
+     /// アイコンが_iconContainerの幅を超える場合、スケールxとspacingを縮めて収める
+     /// </summary>
+    private void FitIconsToContainer()
+    {
+        int count = _yasaiImages.Count + _ninnikuImages.Count + _aburaImages.Count;
+        if (count == 0) return;
+
+        RectTransform containerRect = (RectTransform)_iconContainer;
+        float iconWidth = _iconPrefab.rectTransform.rect.width;
+        float availableWidth = containerRect.rect.width - _layoutGroup.padding.horizontal;
+        float requiredWidth = iconWidth * count + _defaultSpacing * (count - 1);
+
+        float scaleX = 1f;
+        if (requiredWidth > availableWidth)
+        {
+            scaleX = Mathf.Max(availableWidth / requiredWidth, _minIconScaleX);
+        }
+
+        // 見た目の1個分の間隔が (iconWidth + spacing) * scaleX になるようにspacingを詰める
+        _layoutGroup.spacing = (iconWidth + _defaultSpacing) * scaleX - iconWidth;
+
+        Vector3 scale = new Vector3(scaleX, 1f, 1f);
+        ApplyScale(_yasaiImages, scale);
+        ApplyScale(_ninnikuImages, scale);
+        ApplyScale(_aburaImages, scale);
+    }
+
+    private void ApplyScale(List<Image> images, Vector3 scale)
+    {
+        foreach (Image image in images)
+        {
+            image.rectTransform.localScale = scale;
         }
     }
 }

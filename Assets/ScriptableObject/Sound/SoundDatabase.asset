@@ -15,7 +15,13 @@ MonoBehaviour:
   _clipDatas:
   - rid: 7286859859649626443
   - rid: 7286859859649626444
-  - rid: 7286859859649626445
+  - rid: 7286859983195209977
+  - rid: 7286859983195209941
+  - rid: 7286859983195209944
+  - rid: 7286859983195209945
+  - rid: 7286859983195209958
+  - rid: 7286859983195209968
+  - rid: 7286859983195209982
   references:
     version: 2
     RefIds:
@@ -24,22 +30,79 @@ MonoBehaviour:
       data:
         _type:
           _definition: {fileID: 11400000, guid: 9911dee788bf03542ad67f572094efdd, type: 2}
-          _guid: dcea3ac952184b6d91fcc86ffa7a21b3
-        _volume: 1
-        _clip: {fileID: 0}
+          _guid: 0be923385f2c4aebac67ba0a984ea57d
+        _volume: 0.272
+        _clip: {fileID: 8300000, guid: f8d5ceee9fe8dbc4bb12fb1d715b53c9, type: 3}
     - rid: 7286859859649626444
       type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
       data:
         _type:
-          _definition: {fileID: 11400000, guid: 9911dee788bf03542ad67f572094efdd, type: 2}
-          _guid: 0be923385f2c4aebac67ba0a984ea57d
+          _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
+          _guid: 703f375405e444a9b038db2be1098d61
         _volume: 1
-        _clip: {fileID: 0}
-    - rid: 7286859859649626445
+        _clip: {fileID: 8300000, guid: ef1f1d1de30ca3440a60dc1bfe432f94, type: 3}
+    - rid: 7286859983195209941
       type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
       data:
         _type:
           _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
-          _guid: 27c9992193c9417aa8895841466eeb23
+          _guid: 813bb12fbfe24f8c862460a84f2b7274
         _volume: 1
-        _clip: {fileID: 0}
+        _clip: {fileID: 8300000, guid: 12517342065cdf4449631a1cfd3ba775, type: 3}
+    - rid: 7286859983195209944
+      type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
+      data:
+        _type:
+          _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
+          _guid: d005773d0db74c3e8763a30cb6ba002d
+        _volume: 1
+        _clip: {fileID: 8300000, guid: 9a8b15a816790d044b9b49a75b8839c3, type: 3}
+    - rid: 7286859983195209945
+      type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
+      data:
+        _type:
+          _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
+          _guid: add030bc77324a208c827e0bf0f27569
+        _volume: 0.837
+        _clip: {fileID: 8300000, guid: 0ea44481dcde20d4b8fbe0a3e3fbf819, type: 3}
+    - rid: 7286859983195209958
+      type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
+      data:
+        _type:
+          _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
+          _guid: c126fef10f5d447d896bce870b759464
+        _volume: 1
+        _clip: {fileID: 8300000, guid: 0b69a7cec8a408242a267ef334117b42, type: 3}
+    - rid: 7286859983195209968
+      type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
+      data:
+        _type:
+          _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
+          _guid: cb6cf3fc488a400e90a6227ae260b1d3
+        _volume: 1
+        _clip: {fileID: 8300000, guid: a720098142c9bb048b5f8dc489e696c4, type: 3}
+    - rid: 7286859983195209977
+      type: {class: RandomClipData, ns: CoreKit.Sound, asm: CoreKit}
+      data:
+        _type:
+          _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
+          _guid: 4862002b5fbe4750b6bfb716aca20d00
+        _volume: 1
+        _clipEntry:
+        - _clip: {fileID: 8300000, guid: 426c11ab24f232242aa0bd021bc10776, type: 3}
+          _volume: 1
+          _weight: 1
+        - _clip: {fileID: 8300000, guid: 1a1b6d106f4c024479da2006de5d3464, type: 3}
+          _volume: 1
+          _weight: 0
+        - _clip: {fileID: 8300000, guid: 43ad6d8375e2d1a4b90719acba8afd1b, type: 3}
+          _volume: 1
+          _weight: 1
+    - rid: 7286859983195209982
+      type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
+      data:
+        _type:
+          _definition: {fileID: 11400000, guid: 9911dee788bf03542ad67f572094efdd, type: 2}
+          _guid: dcea3ac952184b6d91fcc86ffa7a21b3
+        _volume: 1
+        _clip: {fileID: 8300000, guid: e6a42a1f6fcfcb442bdeb3a745e55bd0, type: 3}

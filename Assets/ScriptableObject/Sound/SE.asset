@@ -12,8 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3e51d6f13f77d4291f8b3766fb8243, type: 3}
   m_Name: SE
   m_EditorClassIdentifier: CoreKit::CoreKit.DynamicEnum.DynamicEnumDefinition
-  _className: NewDynamicEnum
+  _className: SEType
   _entries:
   - Name: ButtonClick
     Guid: 27c9992193c9417aa8895841466eeb23
-  _previousClassName: 
+  - Name: PRESS START
+    Guid: 703f375405e444a9b038db2be1098d61
+  - Name: Moru
+    Guid: 4862002b5fbe4750b6bfb716aca20d00
+  - Name: Miss
+    Guid: 813bb12fbfe24f8c862460a84f2b7274
+  - Name: CustomerClear
+    Guid: d005773d0db74c3e8763a30cb6ba002d
+  - Name: Call
+    Guid: add030bc77324a208c827e0bf0f27569
+  - Name: CountDown
+    Guid: c126fef10f5d447d896bce870b759464
+  - Name: Start
+    Guid: cb6cf3fc488a400e90a6227ae260b1d3
+  _previousClassName: SEType

@@ -24,6 +24,12 @@ namespace Common.Sound
 
             DontDestroyOnLoad(this.gameObject);
         }
+
+        private void Update()
+        {
+             _bgm.Update();
+            _se.Update();
+        }
     }
 
 }
