@@ -866,15 +866,15 @@ PrefabInstance:
     - target: {fileID: 7296240762118590130, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
       propertyPath: _aburaSprite
       value: 
-      objectReference: {fileID: 21300000, guid: bb0063e36468c044d92f39bb465b9ae4, type: 3}
+      objectReference: {fileID: 21300000, guid: 1d903de3815c4b84a8bf01e75fdb6f8c, type: 3}
     - target: {fileID: 7296240762118590130, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
       propertyPath: _yasaiSprite
       value: 
-      objectReference: {fileID: 21300000, guid: f58b817835c092949bd484e461df4156, type: 3}
+      objectReference: {fileID: 21300000, guid: f32ffb6a2f6821541be5e324455abfb1, type: 3}
     - target: {fileID: 7296240762118590130, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
       propertyPath: _ninnikuSprite
       value: 
-      objectReference: {fileID: 21300000, guid: ea12e9c2020373444804c841ed4e6946, type: 3}
+      objectReference: {fileID: 21300000, guid: e9901a803da566f4cbde234bfe56b781, type: 3}
     - target: {fileID: 7296240762118590130, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
       propertyPath: _invalidColor.a
       value: 1
