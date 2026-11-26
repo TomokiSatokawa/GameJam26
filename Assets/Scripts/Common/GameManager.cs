@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Title;
 using UnityEngine;
 
@@ -10,33 +11,39 @@ public class GameManager : MonoBehaviour
     }
 
     public GameState currentState;
-    public int customerCount; //’ñ‹Ÿ‚µ‚½‚¨‹q‚Ìl”
     public TimerManager timerManager;
+    public CameraWork _cameraWork;
     //public BubbleSpawner bubbleSpawner;
     //public MistakeChecker mistakeChecker;
     //public SpawnManager spawnManager;
-    public TitleManager titleManager;
 
     void Start()
     {
         currentState = GameState.Playing;
-        customerCount = 0;
+        ScoreManager.ResetScore();
         timerManager.StartTimer();
-        //bubbleSpawner.ShowBubble();
+
+        timerManager.OnGameTimerEnd += EndGame;
+        timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
     }
 
     public void EndGame() //ƒQ[ƒ€‚ğI—¹‚µ‚ÄƒŠƒUƒ‹ƒg‚É‚·‚é
     {
         currentState = GameState.Result;
-        timerManager.StopTimer();
+        timerManager.PauseTimer(false);
+    }
+
+    public async UniTaskVoid EndCustomer()
+    {
+        timerManager.PauseTimer(false);
+        AddCustomer();
+        await _cameraWork.Slide();
+        timerManager.PauseTimer(true);
     }
 
     public void AddCustomer() //’ñ‹Ÿ‚µ‚½‚¨‹q‚Ìl”‚ğ‘‚â‚·
     {
-        customerCount++;
+        ScoreManager.AddCustomer();
         timerManager.ResetCustomerTimer(); //‚¨‹q‚Ì§ŒÀŠÔ‚ğ10•b‚É–ß‚·
-        //bubbleSpawner.ShowBubble();
-        //mistakeChecker.ResetInput();
-        //spawnManager.StartSpawn();
     }
 }
