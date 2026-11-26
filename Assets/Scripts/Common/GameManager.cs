@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpeechBubble _speechBubble;
     [SerializeField] private OrderFormatter _orderFormatter;
     [SerializeField] private ToppingCounter _toppingCounter;
-    [SerializeField] private PrefabSpawner _prefabSpawner;
+    [SerializeField] private PrefabSpawner _prefabSpawner;  
     [SerializeField] private int _maxCount;
     //public BubbleSpawner bubbleSpawner;
     //public MistakeChecker mistakeChecker;
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         await _cameraWork.Slide();
         timerManager.PauseTimer(true);
         InitializeCustomer();
+        _prefabSpawner.SpawnNext();
     }
 
     public void AddCustomer() //提供したお客の人数を増やす
