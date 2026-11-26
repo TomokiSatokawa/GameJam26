@@ -13,23 +13,18 @@ public class IngredientsGenerator : MonoBehaviour
     [Header("生成位置")]
     [SerializeField] private Transform spawnPoint;
 
+    [Header("参照")]
     [SerializeField] private float _groupRange;
     [SerializeField] private ToppingCounter _toppingCounter;
+    [SerializeField] private CameraWork _cameraWork; // ★追加：カメラワークをセット
 
     public readonly FlagRegistry IgnoreInput = new();
 
     // 具材と「生成アイテムリスト」の辞書に変更
     private Dictionary<Ingredients, List<SpawnPrefab>> prefabGroupDictionary;
 
-    #region InputServiceイベント
-    private IDisposable _yasai;
-    private IDisposable _ninniku;
-    private IDisposable _abura;
-    #endregion
-
     private void Awake()
     {
-        // リストの内容をDictionaryに変換してキャッシュする
         prefabGroupDictionary = new Dictionary<Ingredients, List<SpawnPrefab>>();
 
         foreach (ActionPrefabMapping mapping in actionMappings)
@@ -45,9 +40,41 @@ public class IngredientsGenerator : MonoBehaviour
         }
     }
 
+    // ★追加：ペナルティイベントの登録
+    private void OnEnable()
+    {
+        if (_toppingCounter != null)
+        {
+            _toppingCounter.penalty += OnPenalty;
+        }
+    }
+
+    // ★追加：ペナルティイベントの解除
+    private void OnDisable()
+    {
+        if (_toppingCounter != null)
+        {
+            _toppingCounter.penalty -= OnPenalty;
+        }
+    }
+
+    // ★追加：ペナルティ発生時にカメラを揺らす（＝同時にIsInputLockedがtrueになる）
+    private void OnPenalty()
+    {
+        if (_cameraWork != null)
+        {
+            _cameraWork.Shake();
+        }
+    }
 
     private void Update()
     {
+        // ★追加：カメラがシェイク中（ペナルティ硬直中）はキー入力を無視する
+        if (_cameraWork != null && _cameraWork.IsInputLocked)
+        {
+            return;
+        }
+
         if (IgnoreInput.Flag)
             return;
             
@@ -79,17 +106,14 @@ public class IngredientsGenerator : MonoBehaviour
         _toppingCounter.AddAbura();
     }
 
-    // 指定したenumに対応するPrefabグループをすべて生成する処理
     public void SpawnPrefabGroupByInput(Ingredients ingredients)
     {
         if (prefabGroupDictionary.TryGetValue(ingredients, out List<SpawnPrefab> items))
         {
-            // 登録されているアイテムの種類ごとにループ
             foreach (SpawnPrefab item in items)
             {
                 if (item.prefab == null) continue;
 
-                // 指定された個数(count)分だけ生成する
                 for (int i = 0; i < item.count; i++)
                 {
                     Vector3 clonePosition = spawnPoint.position + Random.insideUnitSphere * _groupRange;
