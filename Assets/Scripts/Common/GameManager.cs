@@ -17,12 +17,14 @@ public class GameManager : MonoBehaviour
     //public SpawnManager spawnManager;
     public TitleManager titleManager;
 
+
     void Start()
     {
         currentState = GameState.Playing;
         customerCount = 0;
         timerManager.StartTimer();
         //bubbleSpawner.ShowBubble();
+        ScoreManager.ResetScore();
     }
 
     public void EndGame() //ゲームを終了してリザルトにする
@@ -38,5 +40,6 @@ public class GameManager : MonoBehaviour
         //bubbleSpawner.ShowBubble();
         //mistakeChecker.ResetInput();
         //spawnManager.StartSpawn();
+        ScoreManager.AddCustomer();
     }
 }
