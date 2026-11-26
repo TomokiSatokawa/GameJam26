@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SpeechBubble : MonoBehaviour
 {
@@ -18,10 +17,6 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] private Vector2 _startOffset = new Vector2(0f, 200f);
     [Tooltip("フェード・移動速度")]
     [SerializeField] private float _duration = 0.5f;
-
-    [Header("テスト用設定")]
-    [Tooltip("テストで表示する文字列")]
-    [SerializeField] private string _testOrderText = "ヤサイマシマシアブラマシマシニンニクマシマシ";
 
     // エディタ上で配置した「本来の表示位置」を覚えておく変数
     private Vector2 _defaultPos;
@@ -45,7 +40,7 @@ public class SpeechBubble : MonoBehaviour
     {
         // もしアニメーション再生中なら一旦止める
         _sequence?.Kill();
-        
+
         // 吹き出しの中に文章を表示する
         _orderText.text = input;
 
@@ -72,18 +67,18 @@ public class SpeechBubble : MonoBehaviour
            .Join(_speechBubble.DOAnchorPos(_defaultPos + _startOffset, _duration).SetEase(Ease.InBack));
     }
 
-    // テスト用アップデート
-    private void Update()
-    {
-        // Spaceキーを押した瞬間にテスト呼び出し
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            ShowSpeechBubble(_testOrderText);
-        }
-        if(Keyboard.current.enterKey.wasPressedThisFrame)
-        {
-            HideSpeechBubble();
-        }
-    }
-    
+    //// テスト用アップデート
+    //private void Update()
+    //{
+    //    // Spaceキーを押した瞬間にテスト呼び出し
+    //    if (Keyboard.current.spaceKey.wasPressedThisFrame)
+    //    {
+    //        ShowSpeechBubble(_testOrderText);
+    //    }
+    //    if(Keyboard.current.enterKey.wasPressedThisFrame)
+    //    {
+    //        HideSpeechBubble();
+    //    }
+    //}
+
 }
