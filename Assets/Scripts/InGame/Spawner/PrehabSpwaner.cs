@@ -4,12 +4,12 @@ using UnityEngine;
 public class PrefabSpawner : MonoBehaviour
 {
     [Header("生成プレハブ設定")]
-    [SerializeField] private GameObject _stagePrefab;
+    [SerializeField] private StageUnit _stagePrefab;
     [SerializeField] private Vector3 _centerStartPosition;
     [SerializeField] private int _maxKeepCount = 3;
     [SerializeField] private float _interval;
 
-    private Queue<GameObject> _poolQueue = new Queue<GameObject>();
+    private Queue<StageUnit> _poolQueue = new Queue<StageUnit>();
     private int _spawnIndex = 0;
 
     /// <summary>今プレイヤーがいるステージ（保持している中央）の位置</summary>
@@ -33,8 +33,9 @@ public class PrefabSpawner : MonoBehaviour
 
         for (int i = 0; i < _maxKeepCount; i++)
         {
-            GameObject obj = Instantiate(_stagePrefab, GetPositionByIndex(_spawnIndex), _stagePrefab.transform.rotation);
+            var obj = Instantiate(_stagePrefab, GetPositionByIndex(_spawnIndex), _stagePrefab.transform.rotation);
             _poolQueue.Enqueue(obj);
+            obj.Initialize();
             _spawnIndex++;
         }
     }
@@ -43,10 +44,11 @@ public class PrefabSpawner : MonoBehaviour
     {
         if (_poolQueue.Count == 0) return;
 
-        GameObject reuseObj = _poolQueue.Dequeue();
+        var reuseObj = _poolQueue.Dequeue();
         reuseObj.transform.position = GetPositionByIndex(_spawnIndex);
 
         _poolQueue.Enqueue(reuseObj);
+        reuseObj.Initialize();
         _spawnIndex++;
     }
 }

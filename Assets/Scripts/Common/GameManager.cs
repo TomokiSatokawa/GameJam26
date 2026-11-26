@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private IngredientsGenerator _ingredientsGenerator;
     [SerializeField] private int _maxCount;
+    [SerializeField] private float _waitTime;
     //public BubbleSpawner bubbleSpawner;
     //public MistakeChecker mistakeChecker;
     //public SpawnManager spawnManager;
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         timerManager.PauseTimer(false);
         var token = _ingredientsGenerator.IgnoreInput.RegisterFlag();
         ScoreManager.AddCustomer(); //提供したお客の人数を増やす
+        await UniTask.WaitForSeconds(_waitTime);
         await _cameraWork.Slide();
         timerManager.PauseTimer(true);
         InitializeCustomer();
