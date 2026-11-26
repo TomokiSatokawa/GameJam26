@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameState //ƒQ[ƒ€‚Ìisó‘Ô
+    public enum GameState //ã‚²ãƒ¼ãƒ ã®é€²è¡ŒçŠ¶æ…‹
     {
         Playing,
         Result
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         _toppingCounter.SetData(orderData);
     }
 
-    public void EndGame() //ƒQ[ƒ€‚ğI—¹‚µ‚ÄƒŠƒUƒ‹ƒg‚É‚·‚é
+    public void EndGame() //ã‚²ãƒ¼ãƒ ã‚’çµ‚äº†ã—ã¦ãƒªã‚¶ãƒ«ãƒˆã«ã™ã‚‹
     {
         currentState = GameState.Result;
         timerManager.PauseTimer(false);
@@ -55,9 +55,9 @@ public class GameManager : MonoBehaviour
         InitializeCustomer();
     }
 
-    public void AddCustomer() //’ñ‹Ÿ‚µ‚½‚¨‹q‚Ìl”‚ğ‘‚â‚·
+    public void AddCustomer() //æä¾›ã—ãŸãŠå®¢ã®äººæ•°ã‚’å¢—ã‚„ã™
     {
         ScoreManager.AddCustomer();
-        timerManager.ResetCustomerTimer(); //‚¨‹q‚Ì§ŒÀŠÔ‚ğ10•b‚É–ß‚·
+        timerManager.ResetCustomerTimer(); //ãŠå®¢ã®åˆ¶é™æ™‚é–“ã‚’10ç§’ã«æˆ»ã™
     }
 }
