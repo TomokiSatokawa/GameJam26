@@ -16,9 +16,6 @@ public class ScoreUI : MonoBehaviour
     public StackedImageView ninnikuScore;       // （任意）リザルト：ニンニクの数
     public StackedImageView aburaScore;         // （任意）リザルト：アブラの数
 
-    [Header("参照")]
-    public GameManager gameManager;
-
     private bool resultGenerated;
 
     private void Start()
@@ -29,19 +26,6 @@ public class ScoreUI : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager == null) return;
-
-        // 1. リザルト状態になったら1回だけリザルトUIを表示する
-        if (gameManager.currentState == GameManager.GameState.Result)
-        {
-            if (!resultGenerated)
-            {
-                ShowResult();
-                resultGenerated = true;
-            }
-            return;
-        }
-
         // 2. インゲーム中は総合スコアのテキストだけを更新する
         if (inGameTotalScoreText != null)
         {
@@ -49,7 +33,7 @@ public class ScoreUI : MonoBehaviour
         }
     }
 
-    private void ShowResult()
+    public void ShowResult()
     {
         // インゲームUIを隠してリザルトパネルを表示
         if (inGamePanel != null) inGamePanel.SetActive(false);

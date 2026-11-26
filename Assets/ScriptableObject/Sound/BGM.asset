@@ -18,4 +18,6 @@ MonoBehaviour:
     Guid: dcea3ac952184b6d91fcc86ffa7a21b3
   - Name: InGameBGM
     Guid: 0be923385f2c4aebac67ba0a984ea57d
+  - Name: ResultBGM
+    Guid: ecaa90edb5764154b750b62de6e4dcc2
   _previousClassName: BGMType

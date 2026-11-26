@@ -2,6 +2,7 @@ using Common.Order;
 using Common.Sound;
 using Cysharp.Threading.Tasks;
 using Generated.DynamicEnums;
+using InGame.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -22,7 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private IngredientsGenerator _ingredientsGenerator;
     [SerializeField] private CountdownView _countdownView;
+    [SerializeField ] private GameEndView _gameEndView;
     [SerializeField] private OrderLevelDatabase _orderLevelDatabase;
+    [SerializeField] private ScoreUI _scoreUI;
     [SerializeField] private int _maxCount;
     [SerializeField] private float _waitTime;
     //public BubbleSpawner bubbleSpawner;
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         _toppingCounter.penalty += () => SoundManager.SE.PlayOneShot(SEType.Miss);
         _toppingCounter.Completed += () => EndCustomer().Forget();
-        timerManager.OnGameTimerEnd += EndGame;
+        timerManager.OnGameTimerEnd += () => EndGame().Forget();
         timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
 
         Initialize().Forget();
@@ -66,10 +69,17 @@ public class GameManager : MonoBehaviour
         timerManager.ResetCustomerTimer(); //お客の制限時間を10秒に戻す
     }
 
-    public void EndGame() //ゲームを終了してリザルトにする
+    public async UniTaskVoid EndGame() //ゲームを終了してリザルトにする
     {
         currentState = GameState.Result;
         timerManager.PauseTimer(false);
+        _ingredientsGenerator.IgnoreInput.RegisterFlag();
+        SoundManager.BGM.ChangeVolume(0, 1f);
+
+        await _gameEndView.PlayAsync(destroyCancellationToken);
+
+        SoundManager.BGM.Play(BGMType.ResultBGM);
+        _scoreUI.ShowResult();
     }
 
     public async UniTaskVoid EndCustomer()
