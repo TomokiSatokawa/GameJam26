@@ -8,11 +8,11 @@ public class TimerUI : MonoBehaviour
 
     public void UpdateGameTimer(float value)
     {
-        _gameTimerText.text = Mathf.CeilToInt(value).ToString();
+        _gameTimerText.text = value.ToString("N2");
     }
 
     public void UpdateCustomerTimer(float value)
     {
-        _customerTimerText.text = Mathf.CeilToInt(value).ToString();
+        _customerTimerText.text = value.ToString("N2");
     }
 }
