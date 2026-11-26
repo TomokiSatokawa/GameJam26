@@ -10,7 +10,11 @@ public class CameraWork : MonoBehaviour
     [SerializeField] private Transform _cameraTransform;
 
     public float SlideAmount => Mathf.Abs(_slideAmount);
+<<<<<<< HEAD
     public async UniTask Slider()
+=======
+    public async UniTask Slide()
+>>>>>>> 2d1cee48441bebd85d827878da676fdff6aae938
     {
         float targetX = _cameraTransform.position.x + SlideAmount;
         await _cameraTransform.DOMoveX(this.transform.position.x + _slideAmount, _slideDuration).SetEase(_animationEase);
