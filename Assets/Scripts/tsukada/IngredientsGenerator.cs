@@ -11,6 +11,8 @@ public class IngredientsGenerator : MonoBehaviour
     [Header("生成位置")]
     [SerializeField] private Transform spawnPoint;
 
+    [SerializeField] private ToppingCounter _toppingCounter;
+
     // 具材と「生成アイテムリスト」の辞書に変更
     private Dictionary<Ingredients, List<SpawnPrefab>> prefabGroupDictionary;
 
@@ -38,23 +40,36 @@ public class IngredientsGenerator : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+
+    private void Update()
     {
-        _yasai = InputService.Player.Yasai.OnPressed(InputYasai);
-        _ninniku = InputService.Player.Ninniku.OnPressed(InputNinniku);
-        _abura = InputService.Player.Abura.OnPressed(InputAbura);
+        if (InputService.Player.Yasai.Down)
+            InputYasai();
+
+        if (InputService.Player.Ninniku.Down)
+            InputNinniku();
+
+        if (InputService.Player.Abura.Down)
+            InputAbura();
     }
 
-    private void OnDisable()
+    public void InputYasai()
     {
-        _yasai?.Dispose();
-        _ninniku?.Dispose();
-        _abura?.Dispose();
+        SpawnPrefabGroupByInput(Ingredients.Yasai);
+        _toppingCounter.AddYasai();
     }
 
-    public void InputYasai() => SpawnPrefabGroupByInput(Ingredients.Yasai);
-    public void InputNinniku() => SpawnPrefabGroupByInput(Ingredients.Ninniku);
-    public void InputAbura() => SpawnPrefabGroupByInput(Ingredients.Abura);
+    public void InputNinniku()
+    {
+        SpawnPrefabGroupByInput(Ingredients.Ninniku);
+        _toppingCounter.AddNinniku();
+    }
+
+    public void InputAbura()
+    {
+        SpawnPrefabGroupByInput(Ingredients.Abura);
+        _toppingCounter.AddAbura();
+    }
 
     // 指定したenumに対応するPrefabグループをすべて生成する処理
     public void SpawnPrefabGroupByInput(Ingredients ingredients)
@@ -77,15 +92,5 @@ public class IngredientsGenerator : MonoBehaviour
         {
             Debug.LogWarning($"{ingredients} に対応するPrefabグループが登録されていません。");
         }
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
     }
 }
