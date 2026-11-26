@@ -276,6 +276,7 @@ MonoBehaviour:
   _slideDuration: 2
   _animationEase: 10
   _cameraTransform: {fileID: 70705658}
+  _penaltyDuration: 2
   _shakeDuration: 0.3
   _shakeStrength: 0.5
   _shakeVibrato: 20
@@ -1221,6 +1222,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1494541414}
   _groupRange: 0.2
   _toppingCounter: {fileID: 1031447845}
+  _cameraWork: {fileID: 70705660}
 --- !u!114 &1031447844
 MonoBehaviour:
   m_ObjectHideFlags: 0
