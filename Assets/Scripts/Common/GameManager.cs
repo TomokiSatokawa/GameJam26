@@ -31,11 +31,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        _toppingCounter.penalty += () => SoundManager.SE.PlayOneShot(SEType.Miss);
+        _toppingCounter.Completed += () => EndCustomer().Forget();
+        timerManager.OnGameTimerEnd += EndGame;
+        timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
+
         Initialize().Forget();
     }
 
     private async UniTaskVoid Initialize()
     {
+        var token =   _ingredientsGenerator.IgnoreInput.RegisterFlag();
         _speechBubble.HideSpeechBubbleImmediate();
         timerManager.StartTimer();
         ScoreManager.ResetScore();
@@ -49,10 +55,7 @@ public class GameManager : MonoBehaviour
         currentState = GameState.Playing;
         ResetCustomer();
 
-        _toppingCounter.penalty += () => SoundManager.SE.PlayOneShot(SEType.Miss);
-        _toppingCounter.Completed += () => EndCustomer().Forget();
-        timerManager.OnGameTimerEnd += EndGame;
-        timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
+        _ingredientsGenerator.IgnoreInput.UnregisterFlag(token);
     }
 
     private void ResetCustomer()
