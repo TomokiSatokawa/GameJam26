@@ -61,7 +61,7 @@ public class SpeechBubble : MonoBehaviour
     {
         // もしアニメーション再生中なら一旦止める
         _sequence?.Kill();
-        
+
         // 吹き出しの中に文章を表示する
         _orderText.text = input;
 
