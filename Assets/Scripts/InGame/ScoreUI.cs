@@ -1,3 +1,4 @@
+using Common.UI;
 using TMPro;
 using UnityEngine;
 
@@ -11,9 +12,9 @@ public class ScoreUI : MonoBehaviour
     public GameObject resultPanel;
     public TextMeshProUGUI resultTotalScoreText;   // リザルト：総合スコア
     public TextMeshProUGUI customerScoreText;      // リザルト：捌いた客の数
-    public TextMeshProUGUI yasaiScoreText;         // リザルト：乗せた野菜の数
-    public TextMeshProUGUI ninnikuScoreText;       // （任意）リザルト：ニンニクの数
-    public TextMeshProUGUI aburaScoreText;         // （任意）リザルト：アブラの数
+    public StackedImageView yasaiScore;         // リザルト：乗せた野菜の数
+    public StackedImageView ninnikuScore;       // （任意）リザルト：ニンニクの数
+    public StackedImageView aburaScore;         // （任意）リザルト：アブラの数
 
     [Header("参照")]
     public GameManager gameManager;
@@ -57,8 +58,8 @@ public class ScoreUI : MonoBehaviour
         // リザルトの各数値を反映
         if (resultTotalScoreText != null) resultTotalScoreText.text = ScoreManager.TotalScore.ToString();
         if (customerScoreText != null) customerScoreText.text = ScoreManager.CustomerCount.ToString();
-        if (yasaiScoreText != null) yasaiScoreText.text = ScoreManager.YasaiScore.ToString();
-        if (ninnikuScoreText != null) ninnikuScoreText.text = ScoreManager.NinnikuScore.ToString();
-        if (aburaScoreText != null) aburaScoreText.text = ScoreManager.AburaScore.ToString();
+        yasaiScore.SetData(ScoreManager.YasaiScore);
+        ninnikuScore.SetData(ScoreManager.NinnikuScore);
+        aburaScore.SetData(ScoreManager.AburaScore);
     }
 }
