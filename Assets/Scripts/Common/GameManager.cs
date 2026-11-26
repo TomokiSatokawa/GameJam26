@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         InitializeCustomer();
 
         _toppingCounter.penalty += () => Debug.Log("Miss");
+        _toppingCounter.Completed += () => EndCustomer().Forget();
         timerManager.OnGameTimerEnd += EndGame;
         timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
     }
