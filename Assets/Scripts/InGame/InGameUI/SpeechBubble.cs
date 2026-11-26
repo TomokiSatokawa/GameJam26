@@ -57,7 +57,7 @@ public class SpeechBubble : MonoBehaviour
     /// ゲームマネージャーからの呼び出しで吹き出しと文章を表示する
     /// </summary>
     /// <param name="input"></param>
-    public void ShowSpeechBubble(string input, int yasaiCount, int ninnikuCount, int aburaCount)
+    public void ShowSpeechBubble(string input, OrderData data)
     {
         // もしアニメーション再生中なら一旦止める
         _sequence?.Kill();
@@ -69,7 +69,7 @@ public class SpeechBubble : MonoBehaviour
         _speechBubble.anchoredPosition = _defaultPos + _startOffset;
 
         // アイコンを再生成して整列させる
-        UpdateIcons(yasaiCount, ninnikuCount, aburaCount);
+        UpdateIcons(data);
 
         // 吹き出しを表示する
         _sequence = DOTween.Sequence()
@@ -91,7 +91,7 @@ public class SpeechBubble : MonoBehaviour
            .Join(_speechBubble.DOAnchorPos(_defaultPos + _startOffset, _duration).SetEase(Ease.InBack));
     }
 
-    private void UpdateIcons(int yasaiCount, int aburaCount, int ninnikuCount)
+    private void UpdateIcons(OrderData data)
     {
         // 前回の注文のアイコンが残っていればすべて削除する
         foreach (Transform child in _iconContainer)
@@ -100,9 +100,9 @@ public class SpeechBubble : MonoBehaviour
         }
 
         // ヤサイ・ニンニク・アブラの順に、指定された個数分だけ生成する
-        SpawnIcons(_yasaiSprite, yasaiCount);
-        SpawnIcons(_ninnikuSprite, ninnikuCount);
-        SpawnIcons(_aburaSprite, aburaCount);
+        SpawnIcons(_yasaiSprite, data.YasaiCount);
+        SpawnIcons(_ninnikuSprite, data.NinnikuCount);
+        SpawnIcons(_aburaSprite, data.AburaCount);
     }
 
     private void SpawnIcons(Sprite sprite, int count)
@@ -114,20 +114,4 @@ public class SpeechBubble : MonoBehaviour
             icon.sprite = sprite;
         }
     }
-
-    // テスト用アップデート
-    
-    private void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            ShowSpeechBubble(_testOrderText, _testYasai, _testNinniku, _testAbura);
-        }
-        if (Keyboard.current.enterKey.wasPressedThisFrame)
-        {
-            HideSpeechBubble();
-        }
-    }
-    
-
 }

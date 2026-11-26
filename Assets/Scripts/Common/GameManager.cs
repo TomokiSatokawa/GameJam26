@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     private void InitializeCustomer()
     {
         var orderData = new OrderData(_maxCount);
-        _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData));
+        _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData), orderData);
         _toppingCounter.SetData(orderData);
     }
 
