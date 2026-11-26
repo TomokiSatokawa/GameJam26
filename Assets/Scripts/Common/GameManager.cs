@@ -1,45 +1,63 @@
-using Title;
+using Common.Order;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameState //ƒQ[ƒ€‚Ìisó‘Ô
+    public enum GameState //ã‚²ãƒ¼ãƒ ã®é€²è¡ŒçŠ¶æ…‹
     {
         Playing,
         Result
     }
 
     public GameState currentState;
-    public int customerCount; //’ñ‹Ÿ‚µ‚½‚¨‹q‚Ìl”
     public TimerManager timerManager;
+    public CameraWork _cameraWork;
+    [SerializeField] private SpeechBubble _speechBubble;
+    [SerializeField] private OrderFormatter _orderFormatter;
+    [SerializeField] private ToppingCounter _toppingCounter;
+    [SerializeField] private int _maxCount;
     //public BubbleSpawner bubbleSpawner;
     //public MistakeChecker mistakeChecker;
     //public SpawnManager spawnManager;
-    public TitleManager titleManager;
-
 
     void Start()
     {
         currentState = GameState.Playing;
-        customerCount = 0;
-        timerManager.StartTimer();
-        //bubbleSpawner.ShowBubble();
         ScoreManager.ResetScore();
+        timerManager.StartTimer();
+        InitializeCustomer();
+
+        _toppingCounter.penalty += () => Debug.Log("Miss");
+        timerManager.OnGameTimerEnd += EndGame;
+        timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
     }
 
-    public void EndGame() //ƒQ[ƒ€‚ğI—¹‚µ‚ÄƒŠƒUƒ‹ƒg‚É‚·‚é
+    private void InitializeCustomer()
+    {
+        var orderData = new OrderData(_maxCount);
+        _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData));
+        _toppingCounter.SetData(orderData);
+    }
+
+    public void EndGame() //ã‚²ãƒ¼ãƒ ã‚’çµ‚äº†ã—ã¦ãƒªã‚¶ãƒ«ãƒˆã«ã™ã‚‹
     {
         currentState = GameState.Result;
-        timerManager.StopTimer();
+        timerManager.PauseTimer(false);
     }
 
-    public void AddCustomer() //’ñ‹Ÿ‚µ‚½‚¨‹q‚Ìl”‚ğ‘‚â‚·
+    public async UniTaskVoid EndCustomer()
     {
-        customerCount++;
-        timerManager.ResetCustomerTimer(); //‚¨‹q‚Ì§ŒÀŠÔ‚ğ10•b‚É–ß‚·
-        //bubbleSpawner.ShowBubble();
-        //mistakeChecker.ResetInput();
-        //spawnManager.StartSpawn();
+        timerManager.PauseTimer(false);
+        AddCustomer();
+        await _cameraWork.Slide();
+        timerManager.PauseTimer(true);
+        InitializeCustomer();
+    }
+
+    public void AddCustomer() //æä¾›ã—ãŸãŠå®¢ã®äººæ•°ã‚’å¢—ã‚„ã™
+    {
         ScoreManager.AddCustomer();
+        timerManager.ResetCustomerTimer(); //ãŠå®¢ã®åˆ¶é™æ™‚é–“ã‚’10ç§’ã«æˆ»ã™
     }
 }

@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class TimerUI : MonoBehaviour
 {
-    public TimerManager manager;
-    public TextMeshProUGUI gameTimerText;
-    public TextMeshProUGUI customerTimerText;
+    [SerializeField] private TextMeshProUGUI _gameTimerText;
+    [SerializeField] private TextMeshProUGUI _customerTimerText;
 
-    public void Update()
+    public void UpdateGameTimer(float value)
     {
-        gameTimerText.text = Mathf.CeilToInt(manager.gameTime).ToString();
-        customerTimerText.text = Mathf.CeilToInt(manager.customerTime).ToString();
+        _gameTimerText.text = Mathf.CeilToInt(value).ToString();
+    }
+
+    public void UpdateCustomerTimer(float value)
+    {
+        _customerTimerText.text = Mathf.CeilToInt(value).ToString();
     }
 }

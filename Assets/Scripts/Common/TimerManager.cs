@@ -1,53 +1,63 @@
+using System;
+using R3;
 using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
-    public float gameTime = 90f; //  ƒQ[ƒ€‘S‘Ì‚Ì§ŒÀŠÔ
-    public float customerTime = 10f; //‚¨‹q1l“–‚½‚è‚Ì§ŒÀŠÔ
-    private bool isRunning; //ƒ^ƒCƒ}[‚ª“®‚¢‚Ä‚¢‚é‚©‚ğŠm”F
-    private GameManager gameManager;
-    private void Start()
-    {
-        gameManager = GetComponent<GameManager>();
-    }
+    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private float _maxGameTime = 90f; //  ã‚²ãƒ¼ãƒ å…¨ä½“ã®åˆ¶é™æ™‚é–“
+    [SerializeField] private float _maxCustomerTime = 10f; //ãŠå®¢1äººå½“ãŸã‚Šã®åˆ¶é™æ™‚é–“
+
+    private readonly ReactiveProperty<float> _gameTimer = new();
+    private readonly ReactiveProperty<float> _customerTimer = new();
+    public ReadOnlyReactiveProperty<float> GameTimer => _gameTimer;
+    public ReadOnlyReactiveProperty<float> CustomerTimer => _customerTimer;
+
+    private bool _isRunning; //ã‚¿ã‚¤ãƒãƒ¼ãŒå‹•ã„ã¦ã„ã‚‹ã‹ã‚’ç¢ºèª
+
+    public event Action OnGameTimerEnd;
+    
+    public event Action OnCustomerTimerEnd;
+
     private void Update()
     {
-        if(!isRunning)
+        if (!_isRunning)
         {
             return;
         }
 
-        gameTime -= Time.deltaTime; //ƒQ[ƒ€‘S‘Ì‚Ì§ŒÀŠÔ‚ğŒ¸‚ç‚·
-        customerTime -= Time.deltaTime; //‚¨‹q‚Ì§ŒÀŠÔ‚ğŒ¸‚ç‚·
-        Debug.Log("‘S‘ÌŠÔF" + gameTime);
-        Debug.Log("‚¨‹qŠÔF" + customerTime);
+        _gameTimer.Value -= Time.deltaTime; //ã‚²ãƒ¼ãƒ å…¨ä½“ã®åˆ¶é™æ™‚é–“ã‚’æ¸›ã‚‰ã™
+        _customerTimer.Value -= Time.deltaTime; //ãŠå®¢ã®åˆ¶é™æ™‚é–“ã‚’æ¸›ã‚‰ã™
+        //Debug.Log("å…¨ä½“æ™‚é–“ï¼š" + _gameTimer.Value);
+        //Debug.Log("ãŠå®¢æ™‚é–“ï¼š" + _customerTimer.Value);
 
-        if (gameTime <= 0)   
+        if (_gameTimer.Value <= 0)
         {
-            gameTime = 0;
-            isRunning = false;
-            gameManager.EndGame();
+            _gameTimer.Value = 0;
+            _isRunning = false;
+            OnGameTimerEnd?.Invoke();
         }
 
-        if (customerTime <= 0)
+        if (_customerTimer.Value <= 0)
         {
-            customerTime = 0;
+            OnCustomerTimerEnd?.Invoke();
         }
     }
+
     public void StartTimer()
     {
-        gameTime = 90f;
-        customerTime = 10f;
-        isRunning = true; //ƒ^ƒCƒ}[‚ğ“®ìó‘Ô‚É‚·‚é
+        _gameTimer.Value = _maxGameTime;
+        ResetCustomerTimer();
+        _isRunning = true; //ã‚¿ã‚¤ãƒãƒ¼ã‚’å‹•ä½œçŠ¶æ…‹ã«ã™ã‚‹
     }
 
     public void ResetCustomerTimer()
     {
-        customerTime = 10f;
+        _customerTimer.Value = _maxCustomerTime; ;
     }
 
-    public void StopTimer()
+    public void PauseTimer(bool isRunning)
     {
-        isRunning = false; //ƒ^ƒCƒ}[‚ğ’â~ó‘Ô‚É‚·‚é
+        _isRunning = isRunning; //ã‚¿ã‚¤ãƒãƒ¼ã‚’åœæ­¢çŠ¶æ…‹ã«ã™ã‚‹
     }
 }
