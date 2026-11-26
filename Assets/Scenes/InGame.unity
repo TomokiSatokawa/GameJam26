@@ -879,6 +879,10 @@ PrefabInstance:
       value: 194
       objectReference: {fileID: 0}
     - target: {fileID: 4951230719545684065, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1461.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951230719545684065, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 72.4
       objectReference: {fileID: 0}
@@ -945,7 +949,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2612730902248901880, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 864417745}
   m_SourcePrefab: {fileID: 100100000, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
 --- !u!224 &864417742 stripped
 RectTransform:
@@ -963,6 +970,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c9c39da5d784247aef0c595d0126df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeechBubble
+--- !u!1 &864417744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2612730902248901880, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+  m_PrefabInstance: {fileID: 864417741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &864417745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864417744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09e02a79c54bdc47be501e34f4de81d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPWidthFitter
+  _maxWidth: 1461.9
+  _minScaleX: 0.5
 --- !u!1 &872441025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,8 +1275,8 @@ MonoBehaviour:
   _prefabSpawner: {fileID: 1508074990}
   _ingredientsGenerator: {fileID: 1031447843}
   _countdownView: {fileID: 1732490716}
-  _maxCount: 3
-  _waitTime: 1
+  _maxCount: 10
+  _waitTime: 0.5
 --- !u!114 &1031447845
 MonoBehaviour:
   m_ObjectHideFlags: 0

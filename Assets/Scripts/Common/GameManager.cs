@@ -82,9 +82,16 @@ public class GameManager : MonoBehaviour
         var token = _ingredientsGenerator.IgnoreInput.RegisterFlag();
         ScoreManager.AddCustomer(); //提供したお客の人数を増やす
         await UniTask.WaitForSeconds(_waitTime);
-        await _cameraWork.Slide();
+
+        async UniTask CustmerAsync()
+        {
+            await UniTask.WaitForSeconds(_cameraWork.SildeDuration / 2);
+            ResetCustomer();
+        }
+
+        await UniTask.WhenAll(_cameraWork.Slide(), CustmerAsync());
+
         timerManager.PauseTimer(true);
-        ResetCustomer();
         _ingredientsGenerator.IgnoreInput.UnregisterFlag(token);
         currentState = GameState.Playing;
     }
