@@ -105,4 +105,4 @@ MonoBehaviour:
           _definition: {fileID: 11400000, guid: 9911dee788bf03542ad67f572094efdd, type: 2}
           _guid: dcea3ac952184b6d91fcc86ffa7a21b3
         _volume: 1
-        _clip: {fileID: 8300000, guid: f8d5ceee9fe8dbc4bb12fb1d715b53c9, type: 3}
+        _clip: {fileID: 8300000, guid: e6a42a1f6fcfcb442bdeb3a745e55bd0, type: 3}
