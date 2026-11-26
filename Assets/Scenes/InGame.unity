@@ -274,7 +274,7 @@ MonoBehaviour:
   _prefabSpawner: {fileID: 1508074990}
   _slideAmount: 15
   _slideDuration: 2
-  _animationEase: 9
+  _animationEase: 10
   _cameraTransform: {fileID: 70705658}
   _shakeDuration: 0.3
   _shakeStrength: 0.5
@@ -969,7 +969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fdf51c3edd71c94e857441494f7b983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrefabSpawner
-  _stagePrefab: {fileID: 5676162515260621288, guid: 3fe8a8ecc0a312a479932ec4142dae90, type: 3}
+  _stagePrefab: {fileID: 5820236274922476274, guid: 3fe8a8ecc0a312a479932ec4142dae90, type: 3}
   _centerStartPosition: {x: 0, y: 0, z: 0}
   _maxKeepCount: 3
   _interval: 0
@@ -1207,17 +1207,17 @@ MonoBehaviour:
   - ingredient: 0
     spawnPrefabs:
     - prefab: {fileID: 1017044927260586260, guid: 7b2077654f0e5e94197e8755f0c3e4f5, type: 3}
-      count: 5
+      count: 10
     - prefab: {fileID: 7812925202583836682, guid: 69b2797b687144c4a868c2858e0e4dbb, type: 3}
-      count: 8
+      count: 16
   - ingredient: 1
     spawnPrefabs:
     - prefab: {fileID: 2353793478623252734, guid: 983f9c2fe221070469c6dedca7f298a0, type: 3}
-      count: 3
+      count: 10
   - ingredient: 2
     spawnPrefabs:
     - prefab: {fileID: 7787834135423447174, guid: be3654b8a8b10e4429291680b6709228, type: 3}
-      count: 2
+      count: 10
   spawnPoint: {fileID: 1494541414}
   _groupRange: 0.2
   _toppingCounter: {fileID: 1031447845}
@@ -1242,6 +1242,7 @@ MonoBehaviour:
   _prefabSpawner: {fileID: 1508074990}
   _ingredientsGenerator: {fileID: 1031447843}
   _maxCount: 3
+  _waitTime: 1
 --- !u!114 &1031447845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1431,7 +1432,7 @@ Transform:
   m_GameObject: {fileID: 1494541413}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.185, z: 1.784}
+  m_LocalPosition: {x: 0, y: 1.18, z: 1.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

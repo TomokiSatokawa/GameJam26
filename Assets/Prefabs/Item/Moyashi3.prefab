@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 941583076638182274}
   - component: {fileID: 4856458043480170027}
   - component: {fileID: 3723638712643064524}
+  - component: {fileID: -2246897286327631821}
   m_Layer: 0
   m_Name: Moyashi3
   m_TagString: Untagged
@@ -101,7 +102,7 @@ Rigidbody:
   m_GameObject: {fileID: 7812925202583836682}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -142,3 +143,19 @@ CapsuleCollider:
   m_Height: 0.055
   m_Direction: 1
   m_Center: {x: -0.00073879724, y: 0.0022178646, z: 0.0014260551}
+--- !u!114 &-2246897286327631821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812925202583836682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdb1690131c235418216deed9b2b32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RigidbodyAutoStopper
+  _rigidbody: {fileID: 4856458043480170027}
+  _delaySeconds: 2
+  _speedCheckStartSeconds: 0.1
+  _speedThreshold: 0.1
