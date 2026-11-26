@@ -5,15 +5,15 @@ using UnityEngine;
 public class TimerManager : MonoBehaviour
 {
     [SerializeField] private GameManager _gameManager;
-    [SerializeField] private float _maxGameTime = 90f; //  ƒQ[ƒ€‘S‘Ì‚Ì§ŒÀŠÔ
-    [SerializeField] private float _maxCustomerTime = 10f; //‚¨‹q1l“–‚½‚è‚Ì§ŒÀŠÔ
+    [SerializeField] private float _maxGameTime = 90f; //  ã‚²ãƒ¼ãƒ å…¨ä½“ã®åˆ¶é™æ™‚é–“
+    [SerializeField] private float _maxCustomerTime = 10f; //ãŠå®¢1äººå½“ãŸã‚Šã®åˆ¶é™æ™‚é–“
 
     private readonly ReactiveProperty<float> _gameTimer = new();
     private readonly ReactiveProperty<float> _customerTimer = new();
     public ReadOnlyReactiveProperty<float> GameTimer => _gameTimer;
     public ReadOnlyReactiveProperty<float> CustomerTimer => _customerTimer;
 
-    private bool _isRunning; //ƒ^ƒCƒ}[‚ª“®‚¢‚Ä‚¢‚é‚©‚ğŠm”F
+    private bool _isRunning; //ã‚¿ã‚¤ãƒãƒ¼ãŒå‹•ã„ã¦ã„ã‚‹ã‹ã‚’ç¢ºèª
 
     public event Action OnGameTimerEnd;
     
@@ -26,10 +26,10 @@ public class TimerManager : MonoBehaviour
             return;
         }
 
-        _gameTimer.Value -= Time.deltaTime; //ƒQ[ƒ€‘S‘Ì‚Ì§ŒÀŠÔ‚ğŒ¸‚ç‚·
-        _customerTimer.Value -= Time.deltaTime; //‚¨‹q‚Ì§ŒÀŠÔ‚ğŒ¸‚ç‚·
-        //Debug.Log("‘S‘ÌŠÔF" + _gameTimer.Value);
-        //Debug.Log("‚¨‹qŠÔF" + _customerTimer.Value);
+        _gameTimer.Value -= Time.deltaTime; //ã‚²ãƒ¼ãƒ å…¨ä½“ã®åˆ¶é™æ™‚é–“ã‚’æ¸›ã‚‰ã™
+        _customerTimer.Value -= Time.deltaTime; //ãŠå®¢ã®åˆ¶é™æ™‚é–“ã‚’æ¸›ã‚‰ã™
+        //Debug.Log("å…¨ä½“æ™‚é–“ï¼š" + _gameTimer.Value);
+        //Debug.Log("ãŠå®¢æ™‚é–“ï¼š" + _customerTimer.Value);
 
         if (_gameTimer.Value <= 0)
         {
@@ -48,7 +48,7 @@ public class TimerManager : MonoBehaviour
     {
         _gameTimer.Value = _maxGameTime;
         ResetCustomerTimer();
-        _isRunning = true; //ƒ^ƒCƒ}[‚ğ“®ìó‘Ô‚É‚·‚é
+        _isRunning = true; //ã‚¿ã‚¤ãƒãƒ¼ã‚’å‹•ä½œçŠ¶æ…‹ã«ã™ã‚‹
     }
 
     public void ResetCustomerTimer()
@@ -58,6 +58,6 @@ public class TimerManager : MonoBehaviour
 
     public void PauseTimer(bool isRunning)
     {
-        _isRunning = isRunning; //ƒ^ƒCƒ}[‚ğ’â~ó‘Ô‚É‚·‚é
+        _isRunning = isRunning; //ã‚¿ã‚¤ãƒãƒ¼ã‚’åœæ­¢çŠ¶æ…‹ã«ã™ã‚‹
     }
 }
