@@ -9,7 +9,7 @@ public class CameraWork : MonoBehaviour
     [SerializeField] private Ease _animationEase;
     [SerializeField] private Transform _cameraTransform;
 
-    public async UniTask Slider()
+    public async UniTask Slide()
     {
         await _cameraTransform.DOMoveX(this.transform.position.x + _slideAmount, _slideDuration).SetEase(_animationEase);
     }
