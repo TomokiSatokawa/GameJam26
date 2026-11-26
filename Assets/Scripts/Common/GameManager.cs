@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         InitializeCustomer();
 
         _toppingCounter.penalty += () => Debug.Log("Miss");
+        _toppingCounter.Completed += () => EndCustomer().Forget();
         timerManager.OnGameTimerEnd += EndGame;
         timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
     }
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     private void InitializeCustomer()
     {
         var orderData = new OrderData(_maxCount);
-        _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData));
+        _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData), orderData);
         _toppingCounter.SetData(orderData);
     }
 
@@ -49,6 +50,8 @@ public class GameManager : MonoBehaviour
 
     public async UniTaskVoid EndCustomer()
     {
+        _speechBubble.HideSpeechBubble();
+        _prefabSpawner.SpawnNext();
         timerManager.PauseTimer(false);
         AddCustomer();
         await _cameraWork.Slide();
