@@ -207,14 +207,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70705655}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.010470176, y: -0, z: -0, w: 0.99994516}
-  m_LocalPosition: {x: 0, y: 1.18, z: -3.37}
+  m_LocalRotation: {x: 0.1259653, y: -0, z: -0, w: 0.9920347}
+  m_LocalPosition: {x: 0, y: 0.608, z: -3.332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1494541414}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 12.34, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.473, y: 0, z: 0}
 --- !u!114 &70705659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,10 +969,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fdf51c3edd71c94e857441494f7b983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrefabSpawner
-  _cameraWork: {fileID: 70705660}
   _stagePrefab: {fileID: 5676162515260621288, guid: 3fe8a8ecc0a312a479932ec4142dae90, type: 3}
   _centerStartPosition: {x: 0, y: 0, z: 0}
   _maxKeepCount: 3
+  _interval: 0
 --- !u!4 &872441027
 Transform:
   m_ObjectHideFlags: 0
@@ -1399,7 +1399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5676162515260621288, guid: 3fe8a8ecc0a312a479932ec4142dae90, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fdf51c3edd71c94e857441494f7b983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrefabSpawner
-  _stagePrefab: {fileID: 5676162515260621288, guid: 3fe8a8ecc0a312a479932ec4142dae90, type: 3}
+  _stagePrefab: {fileID: 5820236274922476274, guid: 3fe8a8ecc0a312a479932ec4142dae90, type: 3}
   _centerStartPosition: {x: 0, y: 0, z: 0}
   _maxKeepCount: 3
   _interval: 9
@@ -1823,3 +1823,4 @@ SceneRoots:
   - {fileID: 1508074991}
   - {fileID: 1360361115}
   - {fileID: 743138522}
+  - {fileID: 872441027}

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1800317297896040426}
+  - component: {fileID: 5820236274922476274}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -39,6 +40,21 @@ Transform:
   - {fileID: 675912314386483611}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5820236274922476274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676162515260621288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c5c9d5d68a30d4d8bdd08fabd872a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageUnit
+  _initializables:
+  - {fileID: 5234125269502421281}
+  - {fileID: 4174719453597139466}
 --- !u!1 &5987954447552937950
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,13 +647,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 06743ed6cbaa52f4392d26097e256265, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4174719453597139466}
   m_SourcePrefab: {fileID: 100100000, guid: 06743ed6cbaa52f4392d26097e256265, type: 3}
 --- !u!4 &7390648978087458042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 06743ed6cbaa52f4392d26097e256265, type: 3}
   m_PrefabInstance: {fileID: 6997016485205693201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7915934763241827904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 06743ed6cbaa52f4392d26097e256265, type: 3}
+  m_PrefabInstance: {fileID: 6997016485205693201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4174719453597139466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7915934763241827904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85871bc8e174b804595d6cc5f9f52c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomActive
+  _target: {fileID: 7915934763241827904}
+  _activeProbability: 0.3
+  _banConsecutiveCount: 3
 --- !u!1001 &7893361896818043231
 PrefabInstance:
   m_ObjectHideFlags: 0
