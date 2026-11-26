@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpeechBubble _speechBubble;
     [SerializeField] private OrderFormatter _orderFormatter;
     [SerializeField] private ToppingCounter _toppingCounter;
+    [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private int _maxCount;
     //public BubbleSpawner bubbleSpawner;
     //public MistakeChecker mistakeChecker;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         InitializeCustomer();
 
         _toppingCounter.penalty += () => Debug.Log("Miss");
+        _toppingCounter.Completed += () => EndCustomer().Forget();
         timerManager.OnGameTimerEnd += EndGame;
         timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
     }
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public async UniTaskVoid EndCustomer()
     {
+        _prefabSpawner.SpawnNext();
         timerManager.PauseTimer(false);
         AddCustomer();
         await _cameraWork.Slide();
