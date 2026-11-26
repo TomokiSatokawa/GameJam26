@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public async UniTaskVoid EndCustomer()
     {
+        _speechBubble.HideSpeechBubble();
         _prefabSpawner.SpawnNext();
         timerManager.PauseTimer(false);
         AddCustomer();
