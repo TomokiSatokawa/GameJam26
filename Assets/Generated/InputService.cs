@@ -16,6 +16,9 @@ public static class InputService
         public readonly InputButton Previous;
         public readonly InputButton Next;
         public readonly InputButton Sprint;
+        public readonly InputButton Ninniku;
+        public readonly InputButton Yasai;
+        public readonly InputButton Abura;
 
         internal PlayerGroup() : base("Player")
         {
@@ -28,6 +31,9 @@ public static class InputService
             Previous = new InputButton("Player/Previous", this);
             Next = new InputButton("Player/Next", this);
             Sprint = new InputButton("Player/Sprint", this);
+            Ninniku = new InputButton("Player/Ninniku", this);
+            Yasai = new InputButton("Player/Yasai", this);
+            Abura = new InputButton("Player/Abura", this);
         }
     }
 
