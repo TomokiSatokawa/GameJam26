@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private IngredientsGenerator _ingredientsGenerator;
     [SerializeField] private CountdownView _countdownView;
+    [SerializeField] private OrderLevelDatabase _orderLevelDatabase;
     [SerializeField] private int _maxCount;
     [SerializeField] private float _waitTime;
     //public BubbleSpawner bubbleSpawner;
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void ResetCustomer()
     {
-        var orderData = new OrderData(_maxCount);
+        var orderData = _orderLevelDatabase.CreateOrderData(ScoreManager.CustomerCount);
         _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData), orderData);
         _toppingCounter.SetData(orderData);
         timerManager.ResetCustomerTimer(); //お客の制限時間を10秒に戻す

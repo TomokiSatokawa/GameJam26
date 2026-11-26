@@ -1275,6 +1275,7 @@ MonoBehaviour:
   _prefabSpawner: {fileID: 1508074990}
   _ingredientsGenerator: {fileID: 1031447843}
   _countdownView: {fileID: 1732490716}
+  _orderLevelDatabase: {fileID: 11400000, guid: 967297110b7a13742ae79874b60c6904, type: 2}
   _maxCount: 10
   _waitTime: 0.5
 --- !u!114 &1031447845
