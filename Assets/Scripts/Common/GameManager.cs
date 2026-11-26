@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ToppingCounter _toppingCounter;
     [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private IngredientsGenerator _ingredientsGenerator;
+    [SerializeField] private CountdownView _countdownView;
     [SerializeField] private int _maxCount;
     [SerializeField] private float _waitTime;
     //public BubbleSpawner bubbleSpawner;
@@ -27,10 +28,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
+        Initialize().Forget();
+    }
+
+    private async UniTaskVoid Initialize()
+    {
+        _speechBubble.HideSpeechBubbleImmediate();
+        timerManager.PauseTimer(false);
         ScoreManager.ResetScore();
         timerManager.StartTimer();
-        InitializeCustomer();
+
+        await _countdownView.PlayAsync(destroyCancellationToken);
+
+        timerManager.PauseTimer(true);
+        currentState = GameState.Playing;
+        ResetCustomer();
 
         _toppingCounter.penalty += () => Debug.Log("Miss");
         _toppingCounter.Completed += () => EndCustomer().Forget();
@@ -38,7 +50,7 @@ public class GameManager : MonoBehaviour
         timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
     }
 
-    private void InitializeCustomer()
+    private void ResetCustomer()
     {
         var orderData = new OrderData(_maxCount);
         _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData), orderData);
@@ -65,7 +77,7 @@ public class GameManager : MonoBehaviour
         await UniTask.WaitForSeconds(_waitTime);
         await _cameraWork.Slide();
         timerManager.PauseTimer(true);
-        InitializeCustomer();
+        ResetCustomer();
         _ingredientsGenerator.IgnoreInput.UnregisterFlag(token);
         currentState = GameState.Playing;
     }

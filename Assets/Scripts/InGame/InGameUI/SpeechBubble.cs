@@ -82,6 +82,17 @@ public class SpeechBubble : MonoBehaviour
            .Join(_canvasGroup.DOFade(0f, _duration).SetEase(Ease.InQuad))
            .Join(_speechBubble.DOAnchorPos(_defaultPos + _startOffset, _duration).SetEase(Ease.InBack));
     }
+    
+    /// <summary>
+     /// アニメーションなしで吹き出しを即座に非表示にする
+     /// </summary>
+    public void HideSpeechBubbleImmediate()
+    {
+        _sequence?.Kill();
+
+        _canvasGroup.alpha = 0f;
+        _speechBubble.anchoredPosition = _defaultPos + _startOffset;
+    }
 
     private void UpdateIcons(OrderData data)
     {
