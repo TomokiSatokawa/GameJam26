@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
                 _spawner.SpawnNext();
             }
 
-            _camera.Slider().Forget();
+            _camera.Slide().Forget();
         }
     }
 }
