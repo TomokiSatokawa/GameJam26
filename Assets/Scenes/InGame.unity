@@ -838,6 +838,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 9163191934847452088, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 433183207cdf04b4e85a49e5bf25f053, type: 2}
+    - target: {fileID: 9163191934847452088, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7104748682418252041, guid: 433183207cdf04b4e85a49e5bf25f053, type: 2}
+    - target: {fileID: 9163191934847452088, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9167152218362751535, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
       propertyPath: m_Name
       value: SpeechBubble
@@ -1126,6 +1138,7 @@ MonoBehaviour:
   _speechBubble: {fileID: 864417743}
   _orderFormatter: {fileID: 1031447842}
   _toppingCounter: {fileID: 1031447845}
+  _prefabSpawner: {fileID: 1508074990}
   _maxCount: 3
 --- !u!114 &1031447845
 MonoBehaviour:

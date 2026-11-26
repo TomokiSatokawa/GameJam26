@@ -28,8 +28,7 @@ public class ToppingCounter : MonoBehaviour
 
     public void AddNinniku(int amount = 1)
     {
-        _ninnikuCount += amount;
-        CheckCount(_ninnikuCount, _currentData.NinnikuCount);
+        AddCount(ref _ninnikuCount, amount, _currentData.NinnikuCount);
     }
 
     /// <summary>
@@ -37,8 +36,7 @@ public class ToppingCounter : MonoBehaviour
     /// </summary>
     public void AddYasai(int amount = 1)
     {
-        _yasaiCount += amount;
-        CheckCount(_yasaiCount, _currentData.YasaiCount);
+        AddCount(ref _yasaiCount, amount, _currentData.YasaiCount);
     }
 
     /// <summary>
@@ -46,21 +44,21 @@ public class ToppingCounter : MonoBehaviour
     /// </summary>
     public void AddAbura(int amount = 1)
     {
-        _aburaCount += amount;
-        CheckCount(_aburaCount, _currentData.AburaCount);
+        AddCount(ref _aburaCount, amount, _currentData.AburaCount);
     }
 
     /// <summary>
-    /// 超過ならpenalty、超過していなければコンプリート確認を行う
+    /// 注文数を超える場合はpenaltyを通知して加算せず、超えない場合は加算してコンプリート確認を行う
     /// </summary>
-    private void CheckCount(int currentCount, int maxCount)
+    private void AddCount(ref int currentCount, int amount, int maxCount)
     {
-        if (currentCount > maxCount)
+        if (currentCount + amount > maxCount)
         {
             penalty?.Invoke();
             return;
         }
 
+        currentCount += amount;
         CheckComplete();
     }
 
