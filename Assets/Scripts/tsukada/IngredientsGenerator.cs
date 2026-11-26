@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using CoreKit;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary> 具材を生成するクラス </summary>
 public class IngredientsGenerator : MonoBehaviour
@@ -11,7 +13,10 @@ public class IngredientsGenerator : MonoBehaviour
     [Header("生成位置")]
     [SerializeField] private Transform spawnPoint;
 
+    [SerializeField] private float _groupRange;
     [SerializeField] private ToppingCounter _toppingCounter;
+
+    public readonly FlagRegistry IgnoreInput = new();
 
     // 具材と「生成アイテムリスト」の辞書に変更
     private Dictionary<Ingredients, List<SpawnPrefab>> prefabGroupDictionary;
@@ -43,6 +48,9 @@ public class IngredientsGenerator : MonoBehaviour
 
     private void Update()
     {
+        if (IgnoreInput.Flag)
+            return;
+            
         if (InputService.Player.Yasai.Down)
             InputYasai();
 
@@ -84,7 +92,8 @@ public class IngredientsGenerator : MonoBehaviour
                 // 指定された個数(count)分だけ生成する
                 for (int i = 0; i < item.count; i++)
                 {
-                    Instantiate(item.prefab, spawnPoint.position, UnityEngine.Random.rotation);
+                    Vector3 clonePosition = spawnPoint.position + Random.insideUnitSphere * _groupRange;
+                    Instantiate(item.prefab, clonePosition, Random.rotation);
                 }
             }
         }
