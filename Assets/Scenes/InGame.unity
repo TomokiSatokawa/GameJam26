@@ -1129,6 +1129,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4053896605822739157, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269824780697665162, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269824780697665162, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269824780697665162, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269824780697665162, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269824780697665162, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269824780697665162, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 9167152218362751535, guid: c8219f18e8858d94a949f2d918c14f50, type: 3}
       propertyPath: m_Name
       value: SpeechBubble
@@ -1385,13 +1413,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientsGenerator
   actionMappings:
-  - ingradient: 0
-    ingradientPrefab: {fileID: 8301858651577728633, guid: 7b12227c1d38c8740a70bb99a88ced7f, type: 3}
-  - ingradient: 1
-    ingradientPrefab: {fileID: 1438901116880227992, guid: 983f9c2fe221070469c6dedca7f298a0, type: 3}
-  - ingradient: 2
-    ingradientPrefab: {fileID: 4766423725386103775, guid: dc0a45eeb801cc740ab9dc9c1bb32b5b, type: 3}
+  - ingredient: 0
+    spawnPrefabs:
+    - prefab: {fileID: 8301858651577728633, guid: 7b12227c1d38c8740a70bb99a88ced7f, type: 3}
+      count: 3
+  - ingredient: 1
+    spawnPrefabs:
+    - prefab: {fileID: 1438901116880227992, guid: 983f9c2fe221070469c6dedca7f298a0, type: 3}
+      count: 1
+  - ingredient: 2
+    spawnPrefabs:
+    - prefab: {fileID: 4766423725386103775, guid: dc0a45eeb801cc740ab9dc9c1bb32b5b, type: 3}
+      count: 2
   spawnPoint: {fileID: 1494541414}
+  _toppingCounter: {fileID: 1031447845}
 --- !u!114 &1031447844
 MonoBehaviour:
   m_ObjectHideFlags: 0
