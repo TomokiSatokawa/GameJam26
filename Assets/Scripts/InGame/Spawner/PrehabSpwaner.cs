@@ -12,14 +12,27 @@ public class PrefabSpawner : MonoBehaviour
     private Queue<StageUnit> _poolQueue = new Queue<StageUnit>();
     private int _spawnIndex = 0;
 
-    /// <summary>今プレイヤーがいるステージ（保持している中央）の位置</summary>
     public Vector3 CurrentPosition => GetPositionByIndex(CurrentIndex);
-
-    /// <summary>現在の1つ先のステージの位置</summary>
     public Vector3 NextPosition => GetPositionByIndex(CurrentIndex + 1);
 
-    // 最後に生成したインデックスから、中央のインデックスを逆算
     private int CurrentIndex => _spawnIndex - 1 - Mathf.Max(1, _maxKeepCount) / 2;
+
+    /// <summary>★追加：今プレイヤーがいる中央のStageUnitを取得する</summary>
+    public StageUnit CurrentStage
+    {
+        get
+        {
+            if (_poolQueue.Count == 0) return null;
+            int targetIdx = Mathf.Clamp(_poolQueue.Count - 1 - Mathf.Max(1, _maxKeepCount) / 2, 0, _poolQueue.Count - 1);
+            int i = 0;
+            foreach (var stage in _poolQueue)
+            {
+                if (i == targetIdx) return stage;
+                i++;
+            }
+            return null;
+        }
+    }
 
     private Vector3 GetPositionByIndex(int index)
     {
