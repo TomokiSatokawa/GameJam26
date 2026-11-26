@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Common.Sound;
 using CoreKit;
+using Generated.DynamicEnums;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -120,6 +122,8 @@ public class IngredientsGenerator : MonoBehaviour
                     Instantiate(item.prefab, clonePosition, Random.rotation);
                 }
             }
+
+            SoundManager.SE.PlayOneShot(SEType.Moru);
         }
         else
         {

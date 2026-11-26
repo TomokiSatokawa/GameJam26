@@ -1,5 +1,7 @@
 using Common.Order;
+using Common.Sound;
 using Cysharp.Threading.Tasks;
+using Generated.DynamicEnums;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -34,17 +36,19 @@ public class GameManager : MonoBehaviour
     private async UniTaskVoid Initialize()
     {
         _speechBubble.HideSpeechBubbleImmediate();
-        timerManager.PauseTimer(false);
-        ScoreManager.ResetScore();
         timerManager.StartTimer();
+        ScoreManager.ResetScore();
+        timerManager.PauseTimer(false);
 
         await _countdownView.PlayAsync(destroyCancellationToken);
+
+        SoundManager.BGM.Play(BGMType.InGameBGM);
 
         timerManager.PauseTimer(true);
         currentState = GameState.Playing;
         ResetCustomer();
 
-        _toppingCounter.penalty += () => Debug.Log("Miss");
+        _toppingCounter.penalty += () => SoundManager.SE.PlayOneShot(SEType.Miss);
         _toppingCounter.Completed += () => EndCustomer().Forget();
         timerManager.OnGameTimerEnd += EndGame;
         timerManager.OnCustomerTimerEnd += () => EndCustomer().Forget();
@@ -68,6 +72,9 @@ public class GameManager : MonoBehaviour
     {
         if (currentState != GameState.Playing)
             return;
+
+        SoundManager.SE.PlayOneShot(SEType.CustomerClear);
+
         currentState = GameState.Moving;
         _speechBubble.HideSpeechBubble();
         _prefabSpawner.SpawnNext();

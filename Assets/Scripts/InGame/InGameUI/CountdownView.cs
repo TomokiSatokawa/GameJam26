@@ -1,6 +1,9 @@
+using System.Net.NetworkInformation;
 using System.Threading;
+using Common.Sound;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Generated.DynamicEnums;
 using TMPro;
 using UnityEngine;
 
@@ -48,11 +51,22 @@ public class CountdownView : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence()
             .Append(_text.transform.DOScale(1f, PopDuration).SetEase(Ease.OutBack))
+            .AppendCallback(() => PlaySe(message))
             .Join(_canvasGroup.DOFade(1f, PopDuration * 0.6f))
             .AppendInterval(holdDuration)
             .Append(_canvasGroup.DOFade(0f, FadeOutDuration))
             .SetLink(gameObject);
 
         await sequence.ToUniTask(cancellationToken: token);
+    }
+
+    private void PlaySe(string message)
+    {
+        if (message == _startMessage)
+        {
+            SoundManager.SE.PlayOneShot(SEType.Start);
+        }
+        else
+            SoundManager.SE.PlayOneShot(SEType.CountDown);
     }
 }

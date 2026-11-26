@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using R3;
+using Common.Sound;
+using Generated.DynamicEnums;
 
 public class SpeechBubble : MonoBehaviour
 {
@@ -68,6 +70,7 @@ public class SpeechBubble : MonoBehaviour
         _speechBubble.anchoredPosition = _defaultPos + _startOffset;
 
         UpdateIcons(data);
+        SoundManager.SE.PlayOneShot(SEType.Call);
 
         _sequence = DOTween.Sequence()
            .Join(_canvasGroup.DOFade(1f, _duration).SetEase(Ease.OutQuad))
