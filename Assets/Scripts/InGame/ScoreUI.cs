@@ -1,4 +1,5 @@
 using Common.UI;
+using Common.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -44,8 +45,8 @@ public class ScoreUI : MonoBehaviour
         if (resultPanel != null) resultPanel.SetActive(true);
 
         // リザルトの各数値を反映
-        if (resultTotalScoreText != null) resultTotalScoreText.text = ScoreManager.TotalScore.ToString();
-        if (customerScoreText != null) customerScoreText.text = ScoreManager.CustomerCount.ToString();
+        if (resultTotalScoreText != null) resultTotalScoreText.text = KanjiNumeral.ToKanji(ScoreManager.TotalScore) + "点";
+        if (customerScoreText != null) customerScoreText.text = KanjiNumeral.ToKanji(ScoreManager.CustomerCount) + "人";
         yasaiScore.SetData(ScoreManager.YasaiScore);
         ninnikuScore.SetData(ScoreManager.NinnikuScore);
         aburaScore.SetData(ScoreManager.AburaScore);

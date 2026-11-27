@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Common.Utility;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace Common.UI
             CancelAnimation();
             _cts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
 
-            _countText.text = count.ToString() + "ÉR";
+            _countText.text = KanjiNumeral.ToKanji(count) + "ÉR";
             HideAll();
 
             PlayAsync(count, _cts.Token).Forget();
