@@ -10,5 +10,8 @@ namespace Generated.DynamicEnums
         public static readonly CoreKit.DynamicEnum.DynamicEnumValue InGameBGM =
             new CoreKit.DynamicEnum.DynamicEnumValue("0be923385f2c4aebac67ba0a984ea57d");
 
+        public static readonly CoreKit.DynamicEnum.DynamicEnumValue ResultBGM =
+            new CoreKit.DynamicEnum.DynamicEnumValue("ecaa90edb5764154b750b62de6e4dcc2");
+
     }
 }

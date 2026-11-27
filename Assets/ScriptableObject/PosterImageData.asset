@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PosterImageData
   m_EditorClassIdentifier: Assembly-CSharp::PosterImageData
   _posterSprites:
-  - {fileID: 21300000, guid: 9a53005f3d94a7c4e8b41a6d4a8cecfe, type: 3}
-  - {fileID: 21300000, guid: 836d20ac8d9141e419e335168a0e3c51, type: 3}
-  - {fileID: 21300000, guid: c03e35b8b11fbf045be95a1cc43cba8d, type: 3}
+  - {fileID: 21300000, guid: f71299ee386bb8b4cbcf7c640f112392, type: 3}
+  - {fileID: 21300000, guid: 46f0eeaaee877244bb7c3eb04e97eab5, type: 3}
+  - {fileID: 21300000, guid: 13a9cbfa512da1e48b8abe081178ded8, type: 3}

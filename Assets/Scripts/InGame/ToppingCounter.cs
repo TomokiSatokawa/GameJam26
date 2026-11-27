@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ToppingCounter : MonoBehaviour
 {
+    [SerializeField] private  ComboSystem _comboSystem;
     private readonly ReactiveProperty<int> _ninnikuCount = new(0);
     private readonly ReactiveProperty<int> _yasaiCount = new(0);
     private readonly ReactiveProperty<int> _aburaCount = new(0);
@@ -53,17 +54,19 @@ public class ToppingCounter : MonoBehaviour
     {
         int nextCount = targetCount.Value + amount;
 
-        if (nextCount <= maxCount)
+        if (nextCount <= maxCount) 
         {
             // 上限以内ならカウントとスコアを更新し、完了チェックを行う
             targetCount.Value = nextCount;
             addScoreAction?.Invoke(amount);
             CheckCompleted();
+            _comboSystem.AddCombo();
         }
         else
         {
             // ★修正ポイント：上限を超えた場合はカウントを増やさず（maxCountのまま維持）、ペナルティだけ発火する
             penalty?.Invoke();
+            _comboSystem.Miss();
         }
     }
 

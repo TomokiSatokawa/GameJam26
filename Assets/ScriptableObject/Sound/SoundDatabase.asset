@@ -22,6 +22,7 @@ MonoBehaviour:
   - rid: 7286859983195209958
   - rid: 7286859983195209968
   - rid: 7286859983195209982
+  - rid: 7286859983195210100
   references:
     version: 2
     RefIds:
@@ -106,3 +107,11 @@ MonoBehaviour:
           _guid: dcea3ac952184b6d91fcc86ffa7a21b3
         _volume: 1
         _clip: {fileID: 8300000, guid: e6a42a1f6fcfcb442bdeb3a745e55bd0, type: 3}
+    - rid: 7286859983195210100
+      type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
+      data:
+        _type:
+          _definition: {fileID: 11400000, guid: 9911dee788bf03542ad67f572094efdd, type: 2}
+          _guid: ecaa90edb5764154b750b62de6e4dcc2
+        _volume: 1
+        _clip: {fileID: 8300000, guid: 56ae95b1056e7834493ad46e8777fd76, type: 3}

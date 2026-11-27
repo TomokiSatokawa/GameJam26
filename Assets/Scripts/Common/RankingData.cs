@@ -1,20 +1,15 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 [Serializable]
-
 public class RankingEntry
 {
-    public string playerName;
-    public int customerCount;
+    public int customerCount; // 捌いた客の数
+    public int totalScore;    // 総合スコア
 }
 
 [Serializable]
-public class RankingData 
+public class RankingData
 {
-  public List<RankingEntry> rankings = new List<RankingEntry>();
+    public List<RankingEntry> rankings = new List<RankingEntry>();
 }
-
- 
-
