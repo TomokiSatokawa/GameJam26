@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using Common.Sound;
 using DG.Tweening;
+using Generated.DynamicEnums;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using R3;
-using Common.Sound;
-using Generated.DynamicEnums;
 
 public class SpeechBubble : MonoBehaviour
 {
@@ -95,10 +95,10 @@ public class SpeechBubble : MonoBehaviour
            .Join(_canvasGroup.DOFade(0f, _duration).SetEase(Ease.InQuad))
            .Join(_speechBubble.DOAnchorPos(_defaultPos + _startOffset, _duration).SetEase(Ease.InBack));
     }
-    
+
     /// <summary>
-     /// アニメーションなしで吹き出しを即座に非表示にする
-     /// </summary>
+    /// アニメーションなしで吹き出しを即座に非表示にする
+    /// </summary>
     public void HideSpeechBubbleImmediate()
     {
         _sequence?.Kill();
@@ -114,9 +114,26 @@ public class SpeechBubble : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        SpawnIcons(_yasaiSprite, data.YasaiCount, _yasaiImages);
-        SpawnIcons(_ninnikuSprite, data.NinnikuCount, _ninnikuImages);
-        SpawnIcons(_aburaSprite, data.AburaCount, _aburaImages);
+        _yasaiImages.Clear();
+        _ninnikuImages.Clear();
+        _aburaImages.Clear();
+
+        foreach (var order in data.Entries)
+        {
+            switch (order.Ingredient)
+            {
+                case Ingredients.Yasai:
+                    SpawnIcons(_yasaiSprite, order.Count, _yasaiImages);
+                    break;
+                case Ingredients.Ninniku:
+                    SpawnIcons(_ninnikuSprite, order.Count, _ninnikuImages);
+                    break;
+                case Ingredients.Abura:
+                    SpawnIcons(_aburaSprite, order.Count, _aburaImages);
+                    break;
+
+            }
+        }
 
         FitIconsToContainer();
 
@@ -127,7 +144,6 @@ public class SpeechBubble : MonoBehaviour
 
     private void SpawnIcons(Sprite sprite, int count, List<Image> clonedList)
     {
-        clonedList.Clear();
         for (int i = 0; i < count; i++)
         {
             Image icon = Instantiate(_iconPrefab, _iconContainer);
@@ -147,10 +163,10 @@ public class SpeechBubble : MonoBehaviour
             clonedList[i].color = i < count ? _validColor : _invalidColor;
         }
     }
-    
+
     /// <summary>
-     /// アイコンが_iconContainerの幅を超える場合、スケールxとspacingを縮めて収める
-     /// </summary>
+    /// アイコンが_iconContainerの幅を超える場合、スケールxとspacingを縮めて収める
+    /// </summary>
     private void FitIconsToContainer()
     {
         int count = _yasaiImages.Count + _ninnikuImages.Count + _aburaImages.Count;

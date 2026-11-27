@@ -7,6 +7,7 @@ public class TimerManager : MonoBehaviour
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private float _maxGameTime = 90f; //  ゲーム全体の制限時間
     [SerializeField] private float _maxCustomerTime = 10f; //お客1人当たりの制限時間
+    [SerializeField] private ComboSystem _comboSystem;
 
     private readonly ReactiveProperty<float> _gameTimer = new();
     private readonly ReactiveProperty<float> _customerTimer = new();
@@ -18,6 +19,11 @@ public class TimerManager : MonoBehaviour
     public event Action OnGameTimerEnd;
     
     public event Action OnCustomerTimerEnd;
+
+    private void Start()
+    {
+        _comboSystem.OnTimeAdded += AddGameTime;
+    }
 
     private void Update()
     {
@@ -49,6 +55,11 @@ public class TimerManager : MonoBehaviour
         _gameTimer.Value = _maxGameTime;
         ResetCustomerTimer();
         _isRunning = true; //タイマーを動作状態にする
+    }
+    
+    private void AddGameTime(int amount)
+    {
+        _gameTimer.Value += amount;
     }
 
     public void ResetCustomerTimer()
