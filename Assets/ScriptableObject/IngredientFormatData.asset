@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientFormatData
   _suffixes:
   - _minCount: 2
-    _suffix: Masi
+    _suffix: "\u30DE\u30B7"
   - _minCount: 3
-    _suffix: MasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 4
-    _suffix: MasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 5
-    _suffix: MasiMasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 6
-    _suffix: MasiMasiMasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 7
-    _suffix: MasiMasiMasiMasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 8
-    _suffix: MasiMasiMasiMasiMasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 9
-    _suffix: MasiMasiMasiMasiMasiMasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 10
-    _suffix: MasiMasiMasiMasiMasiMasiMasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 11
-    _suffix: MasiMasiMasiMasiMasiMasiMasiMasiMasiMasi
+    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"

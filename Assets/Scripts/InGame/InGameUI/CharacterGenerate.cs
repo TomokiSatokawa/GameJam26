@@ -1,42 +1,31 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CharacterGenerate : MonoBehaviour
+public class CharacterGenerate : InitializableBase
 {
     [Header("参照")]
     [Tooltip("CharacterImageDataを入れる")]
     [SerializeField] private CharacterImageData _characterSprite;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private void Start()
+    /// <summary>このスクリプトでScriptableObjectから指定するインデックス番号（ランダム）</summary>
+    private int count;
+
+    public override void Initialize()
     {
         // スプライトのリストからランダムに数を取得
         int max = _characterSprite.CharacterSprites.Count;
-        int count = Random.Range(0, max);
+        count = Random.Range(0, max);
 
         // スプライトをランダムに変更
-        _spriteRenderer.sprite = _characterSprite.CharacterSprites[count];
-
-        /*
-        Image character = gameObject.GetComponent<Image>();
-        character.sprite = _characterSprite.CharacterSprites[count];
-        */
+        _spriteRenderer.sprite = _characterSprite.CharacterSprites[count].normal;
     }
 
     /// <summary>
-    /// デバッグ用にボタンから呼び出す処理
+    /// キャラクタースプライトを失敗時に外部から変更するメソッド
     /// </summary>
-    /*
-    public void Test()
+    public void ChangeExpression()
     {
-        // スプライトのリストからランダムに数を取得
-        int max = _characterSprite.CharacterSprites.Count;
-        int count = Random.Range(0, max);
-
-        // スプライトをランダムに変更
-        _spriteRenderer.sprite = _characterSprite.CharacterSprites[count];
-
+        // 表情を変更する
+        _spriteRenderer.sprite = _characterSprite.CharacterSprites[count].miss;
     }
-    */
-    
 }

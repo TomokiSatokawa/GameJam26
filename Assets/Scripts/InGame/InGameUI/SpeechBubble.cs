@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using R3;
+using Common.Sound;
+using Generated.DynamicEnums;
 
 public class SpeechBubble : MonoBehaviour
 {
@@ -13,6 +16,8 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _orderText;
     [Tooltip("吹き出しと注文をまとめる")]
     [SerializeField] private CanvasGroup _canvasGroup;
+
+    [SerializeField] private ToppingCounter _toppingCounter;
 
     [Header("吹き出しを動かす設定")]
     [Tooltip("初期位置")]
@@ -32,86 +37,150 @@ public class SpeechBubble : MonoBehaviour
     [Tooltip("アブラのアイコン画像")]
     [SerializeField] private Sprite _aburaSprite;
 
-    [Header("テスト用設定")]
-    [Tooltip("テストで表示する文字列（テストする場合はコード最下部のUpdateのコメントアウトを外してください。）")]
-    [SerializeField] private string _testOrderText = "ヤサイマシマシアブラマシマシニンニクマシマシ";
-    [SerializeField] private int _testYasai = 3;
-    [SerializeField] private int _testAbura = 3;
-    [SerializeField] private int _testNinniku = 3;
+    [Header("アイコンの有効/無効カラー")]
+    [Tooltip("有効（入れ済み）のアイコンの色")]
+    [SerializeField] private Color _validColor = Color.white;
+    [Tooltip("無効（まだ足りない）アイコンの色")]
+    [SerializeField] private Color _invalidColor = new Color(1f, 1f, 1f, 0.3f);
 
-    // エディタ上で配置した「本来の表示位置」を覚えておく変数
+    [Header("はみ出し対策")]
+    [Tooltip("アイコンのスケールxを縮める下限")]
+    [SerializeField, Range(0.1f, 1f)] private float _minIconScaleX = 0.3f;
+
+    private HorizontalLayoutGroup _layoutGroup;
+    private float _defaultSpacing;
+
+    private readonly List<Image> _yasaiImages = new();
+    private readonly List<Image> _ninnikuImages = new();
+    private readonly List<Image> _aburaImages = new();
+
     private Vector2 _defaultPos;
-    // 再生中のアニメーションを管理する変数
     private Sequence _sequence;
 
     private void Awake()
     {
-        // ゲーム開始時に、エディタ上で配置した吹き出しの位置を記憶する
         _defaultPos = _speechBubble.anchoredPosition;
-        // 最初は見えない状態にしておく
         _canvasGroup.alpha = 0f;
+
+        _toppingCounter.YasaiCount.Subscribe(x => UpdateIconValid(x, _yasaiImages)).RegisterTo(destroyCancellationToken);
+        _toppingCounter.NinnikuCount.Subscribe(x => UpdateIconValid(x, _ninnikuImages)).RegisterTo(destroyCancellationToken);
+        _toppingCounter.AburaCount.Subscribe(x => UpdateIconValid(x, _aburaImages)).RegisterTo(destroyCancellationToken);
+
+        _layoutGroup = _iconContainer.GetComponent<HorizontalLayoutGroup>();
+        _defaultSpacing = _layoutGroup.spacing;
     }
 
-
-    /// <summary>
-    /// ゲームマネージャーからの呼び出しで吹き出しと文章を表示する
-    /// </summary>
-    /// <param name="input"></param>
     public void ShowSpeechBubble(string input, OrderData data)
     {
-        // もしアニメーション再生中なら一旦止める
         _sequence?.Kill();
 
-        // 吹き出しの中に文章を表示する
         _orderText.text = input;
 
         _canvasGroup.alpha = 0f;
         _speechBubble.anchoredPosition = _defaultPos + _startOffset;
 
-        // アイコンを再生成して整列させる
         UpdateIcons(data);
+        SoundManager.SE.PlayOneShot(SEType.Call);
 
-        // 吹き出しを表示する
         _sequence = DOTween.Sequence()
            .Join(_canvasGroup.DOFade(1f, _duration).SetEase(Ease.OutQuad))
            .Join(_speechBubble.DOAnchorPos(_defaultPos, _duration).SetEase(Ease.OutBack));
     }
 
-    /// <summary>
-    /// ゲームマネージャーからの呼び出しで吹き出しを画面外に出しつつ透明にする処理
-    /// </summary>
     public void HideSpeechBubble()
     {
-        // もしアニメーション再生中なら一旦止める
         _sequence?.Kill();
 
-        // 吹き出しを透明にしつつ非表示に
         _sequence = DOTween.Sequence()
            .Join(_canvasGroup.DOFade(0f, _duration).SetEase(Ease.InQuad))
            .Join(_speechBubble.DOAnchorPos(_defaultPos + _startOffset, _duration).SetEase(Ease.InBack));
     }
+    
+    /// <summary>
+     /// アニメーションなしで吹き出しを即座に非表示にする
+     /// </summary>
+    public void HideSpeechBubbleImmediate()
+    {
+        _sequence?.Kill();
+
+        _canvasGroup.alpha = 0f;
+        _speechBubble.anchoredPosition = _defaultPos + _startOffset;
+    }
 
     private void UpdateIcons(OrderData data)
     {
-        // 前回の注文のアイコンが残っていればすべて削除する
         foreach (Transform child in _iconContainer)
         {
             Destroy(child.gameObject);
         }
 
-        // ヤサイ・ニンニク・アブラの順に、指定された個数分だけ生成する
-        SpawnIcons(_yasaiSprite, data.YasaiCount);
-        SpawnIcons(_ninnikuSprite, data.NinnikuCount);
-        SpawnIcons(_aburaSprite, data.AburaCount);
+        SpawnIcons(_yasaiSprite, data.YasaiCount, _yasaiImages);
+        SpawnIcons(_ninnikuSprite, data.NinnikuCount, _ninnikuImages);
+        SpawnIcons(_aburaSprite, data.AburaCount, _aburaImages);
+
+        FitIconsToContainer();
+
+        UpdateIconValid(_toppingCounter.YasaiCount.CurrentValue, _yasaiImages);
+        UpdateIconValid(_toppingCounter.NinnikuCount.CurrentValue, _ninnikuImages);
+        UpdateIconValid(_toppingCounter.AburaCount.CurrentValue, _aburaImages);
     }
 
-    private void SpawnIcons(Sprite sprite, int count)
+    private void SpawnIcons(Sprite sprite, int count, List<Image> clonedList)
     {
+        clonedList.Clear();
         for (int i = 0; i < count; i++)
         {
-            // _iconContainerの子として生成すると、Horizontal Layout Groupが自動で横並びに整列する
             Image icon = Instantiate(_iconPrefab, _iconContainer);
             icon.sprite = sprite;
+            icon.color = _invalidColor; // 最初は無効状態
+            clonedList.Add(icon);
+        }
+    }
+
+    /// <summary>
+    /// 先頭からcount個を有効色、それ以降を無効色にする
+    /// </summary>
+    private void UpdateIconValid(int count, List<Image> clonedList)
+    {
+        for (int i = 0; i < clonedList.Count; i++)
+        {
+            clonedList[i].color = i < count ? _validColor : _invalidColor;
+        }
+    }
+    
+    /// <summary>
+     /// アイコンが_iconContainerの幅を超える場合、スケールxとspacingを縮めて収める
+     /// </summary>
+    private void FitIconsToContainer()
+    {
+        int count = _yasaiImages.Count + _ninnikuImages.Count + _aburaImages.Count;
+        if (count == 0) return;
+
+        RectTransform containerRect = (RectTransform)_iconContainer;
+        float iconWidth = _iconPrefab.rectTransform.rect.width;
+        float availableWidth = containerRect.rect.width - _layoutGroup.padding.horizontal;
+        float requiredWidth = iconWidth * count + _defaultSpacing * (count - 1);
+
+        float scaleX = 1f;
+        if (requiredWidth > availableWidth)
+        {
+            scaleX = Mathf.Max(availableWidth / requiredWidth, _minIconScaleX);
+        }
+
+        // 見た目の1個分の間隔が (iconWidth + spacing) * scaleX になるようにspacingを詰める
+        _layoutGroup.spacing = (iconWidth + _defaultSpacing) * scaleX - iconWidth;
+
+        Vector3 scale = new Vector3(scaleX, 1f, 1f);
+        ApplyScale(_yasaiImages, scale);
+        ApplyScale(_ninnikuImages, scale);
+        ApplyScale(_aburaImages, scale);
+    }
+
+    private void ApplyScale(List<Image> images, Vector3 scale)
+    {
+        foreach (Image image in images)
+        {
+            image.rectTransform.localScale = scale;
         }
     }
 }

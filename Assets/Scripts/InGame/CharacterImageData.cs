@@ -5,8 +5,16 @@ using UnityEngine;
 public class CharacterImageData : ScriptableObject
 {
     // シリアライズフィールドでスプライトを格納
-    [SerializeField] private Sprite[] _characterSprites;
+    [SerializeField] private DifferentExpressions[] _characterSprites;
 
     // リードオンリーでスプライトを渡す
-    public IReadOnlyList<Sprite> CharacterSprites => _characterSprites;
+    public IReadOnlyList<DifferentExpressions> CharacterSprites => _characterSprites;
+}
+
+// Unityのインスペクターにこのクラスの中身を表示させる
+[System.Serializable]
+public class DifferentExpressions
+{
+    public Sprite normal;
+    public Sprite miss;
 }

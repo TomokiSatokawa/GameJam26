@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Common.Sound;
+using CoreKit;
+using Generated.DynamicEnums;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary> 具材を生成するクラス </summary>
 public class IngredientsGenerator : MonoBehaviour
@@ -11,20 +15,19 @@ public class IngredientsGenerator : MonoBehaviour
     [Header("生成位置")]
     [SerializeField] private Transform spawnPoint;
 
+    [Header("参照")]
+    [SerializeField] private float _groupRange;
     [SerializeField] private ToppingCounter _toppingCounter;
+    [SerializeField] private CameraWork _cameraWork;
+    [SerializeField] private PrefabSpawner _prefabSpawner;
+
+    public readonly FlagRegistry IgnoreInput = new();
 
     // 具材と「生成アイテムリスト」の辞書に変更
     private Dictionary<Ingredients, List<SpawnPrefab>> prefabGroupDictionary;
 
-    #region InputServiceイベント
-    private IDisposable _yasai;
-    private IDisposable _ninniku;
-    private IDisposable _abura;
-    #endregion
-
     private void Awake()
     {
-        // リストの内容をDictionaryに変換してキャッシュする
         prefabGroupDictionary = new Dictionary<Ingredients, List<SpawnPrefab>>();
 
         foreach (ActionPrefabMapping mapping in actionMappings)
@@ -40,9 +43,41 @@ public class IngredientsGenerator : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (_toppingCounter != null)
+        {
+            _toppingCounter.penalty += OnPenalty;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_toppingCounter != null)
+        {
+            _toppingCounter.penalty -= OnPenalty;
+        }
+    }
+
+    private void OnPenalty()
+    {
+        if (_cameraWork != null)
+        {
+            _cameraWork.Shake();
+        }
+    }
 
     private void Update()
     {
+        // カメラがシェイク中（ペナルティ硬直中）はキー入力を無視する
+        if (_cameraWork != null && _cameraWork.IsInputLocked)
+        {
+            return;
+        }
+
+        if (IgnoreInput.Flag)
+            return;
+
         if (InputService.Player.Yasai.Down)
             InputYasai();
 
@@ -71,22 +106,31 @@ public class IngredientsGenerator : MonoBehaviour
         _toppingCounter.AddAbura();
     }
 
-    // 指定したenumに対応するPrefabグループをすべて生成する処理
     public void SpawnPrefabGroupByInput(Ingredients ingredients)
     {
         if (prefabGroupDictionary.TryGetValue(ingredients, out List<SpawnPrefab> items))
         {
-            // 登録されているアイテムの種類ごとにループ
+            // 今カメラが映している中央のステージを取得
+            StageUnit currentStage = _prefabSpawner != null ? _prefabSpawner.CurrentStage : null;
+
             foreach (SpawnPrefab item in items)
             {
                 if (item.prefab == null) continue;
 
-                // 指定された個数(count)分だけ生成する
                 for (int i = 0; i < item.count; i++)
                 {
-                    Instantiate(item.prefab, spawnPoint.position, UnityEngine.Random.rotation);
+                    Vector3 clonePosition = spawnPoint.position + Random.insideUnitSphere * _groupRange;
+                    GameObject spawned = Instantiate(item.prefab, clonePosition, Random.rotation);
+
+                    // 現在のステージに具材を紐づける（ステージ再利用時に自動で消える）
+                    if (currentStage != null)
+                    {
+                        currentStage.RegisterIngredient(spawned);
+                    }
                 }
             }
+
+            SoundManager.SE.PlayOneShot(SEType.Moru);
         }
         else
         {

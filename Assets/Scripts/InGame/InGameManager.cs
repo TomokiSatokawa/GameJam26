@@ -13,7 +13,6 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.BGM.Play(_bgm);
     }
 
     /// <summary>

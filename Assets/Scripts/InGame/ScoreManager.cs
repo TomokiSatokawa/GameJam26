@@ -8,6 +8,8 @@ public static class ScoreManager
     public static int AburaScore { get; private set; }
     public static int CustomerCount { get; private set; }
 
+    public static int TotalScore => (NinnikuScore + YasaiScore + AburaScore) * 100 + (CustomerCount * 500);
+
     /// <summary>
     /// スコアをリセットする
     /// </summary>

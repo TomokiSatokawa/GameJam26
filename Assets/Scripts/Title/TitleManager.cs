@@ -23,11 +23,14 @@ namespace Title
             var fade = _fade.FadeOut();
             var scene = SceneLoader.LoadAsync(_inGameSceneName, token: destroyCancellationToken);
 
+            SoundManager.BGM.ChangeVolume(0, 1f);
+
             //非同期で読み込みつつフェードアウトする
             await UniTask.WhenAll(fade, scene);
 
             //Scene移動
             await SceneLoader.TryMoveSceneAsync();
+
         }
     }
 }
