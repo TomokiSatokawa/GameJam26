@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798137c4500055c4587bd91f517f7197, type: 3}
-  m_Name: VoiceContainer 1
+  m_Name: VoiceContainer_Piero
   m_EditorClassIdentifier: Assembly-CSharp::VoiceContainer
   _voiceEntries:
-  - Word: "\u3084\u3055\u3044"
-    Clip: {fileID: 8300000, guid: a879658b65a19a44e86c1868ed430cc3, type: 3}
   - Word: "\u30CB\u30F3\u30CB\u30AF"
-    Clip: {fileID: 8300000, guid: a5d607dec2e6c004c9f907e41dee2c43, type: 3}
-  - Word: "\u30A2\u30D6\u30E9"
-    Clip: {fileID: 8300000, guid: 8aab3db53ff97c343825f9ff5a663f69, type: 3}
+    Clip: {fileID: 8300000, guid: 5eb62f4da55b3f447b12f5066e5e9e83, type: 3}
+  - Word: "\u30E4\u30B5\u30A4"
+    Clip: {fileID: 8300000, guid: eab9d133f8f6eec42bd43183f2761da9, type: 3}
   - Word: "\u30DE\u30B7"
-    Clip: {fileID: 8300000, guid: 31990e7b8981d2849bc2f53829431ad6, type: 3}
+    Clip: {fileID: 8300000, guid: 2baf662499fb3d24da7e7818fe8a625b, type: 3}
+  - Word: "\u30A2\u30D6\u30E9"
+    Clip: {fileID: 8300000, guid: 8b2d2a7e3694046458b990d43edbec92, type: 3}

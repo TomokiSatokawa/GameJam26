@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InGame.Order;
 using UnityEngine;
 
 public class PrefabSpawner : MonoBehaviour
@@ -6,6 +7,7 @@ public class PrefabSpawner : MonoBehaviour
     [Header("生成プレハブ設定")]
     [SerializeField] private StageUnit _stagePrefab;
     [SerializeField] private ToppingCounter _counter;
+    [SerializeField] private CallVoice _callVoice;
     [SerializeField] private Vector3 _centerStartPosition;
     [SerializeField] private int _maxKeepCount = 3;
     [SerializeField] private float _interval;
@@ -54,6 +56,8 @@ public class PrefabSpawner : MonoBehaviour
         }
 
         _counter.penalty += () => CurrentStage?.Fall();
+
+        _callVoice.SetData(CurrentStage?.Character.DifferentExpressions.Voice);
     }
 
     public void SpawnNext()
@@ -66,5 +70,7 @@ public class PrefabSpawner : MonoBehaviour
         _poolQueue.Enqueue(reuseObj);
         reuseObj.Initialize();
         _spawnIndex++;
+
+        _callVoice.SetData(CurrentStage?.Character.DifferentExpressions.Voice);
     }
 }

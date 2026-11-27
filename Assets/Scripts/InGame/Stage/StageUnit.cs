@@ -6,6 +6,8 @@ public class StageUnit : InitializableBase
     [SerializeField] private InitializableBase[] _initializables;
     [SerializeField] private CharacterGenerate _characterGenerate;
 
+    public CharacterGenerate Character => _characterGenerate;
+
     // このステージ上に生成された具材を記録しておくリスト
     private readonly List<GameObject> _spawnedIngredients = new List<GameObject>();
 

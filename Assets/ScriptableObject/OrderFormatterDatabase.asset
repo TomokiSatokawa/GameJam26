@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrderFormatterDatabase
   m_EditorClassIdentifier: Assembly-CSharp::Common.Order.OrderFormatterDatabase
   _yasai:
-    _name: "\u3084\u3055\u3044"
+    _name: "\u30E4\u30B5\u30A4"
     _suffixes: {fileID: 11400000, guid: 280cb98b1358c5347851c63c72bd2a92, type: 2}
   _ninniku:
     _name: "\u30CB\u30F3\u30CB\u30AF"
