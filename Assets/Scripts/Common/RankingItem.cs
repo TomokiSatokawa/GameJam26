@@ -1,3 +1,4 @@
+using Common.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ public class RankingItem : MonoBehaviour
 
     public void SetData(int rank, RankingEntry entry)
     {
-        if (_rankText != null) _rankText.text = $"{rank}位";
-        if (_scoreText != null) _scoreText.text = $"{entry.totalScore}点";
+        if (_rankText != null) _rankText.text = $"{KanjiNumeral.ToKanji(rank)}位";
+        if (_scoreText != null) _scoreText.text = $"{KanjiNumeral.ToKanji(entry.customerCount)}人";
         if (_BackgroundObject != null) _BackgroundObject.SetActive(entry.isBackground);
     }
 }
