@@ -39,7 +39,7 @@ public class TitleRankingUI : MonoBehaviour
         foreach (Transform child in _listParent)
         {
             Destroy(child.gameObject);
-        }
+        }   
 
         RankingData data = _rankingManager.LoadRanking();
         Debug.Log($"③ 読み込んだデータ件数: {data.rankings.Count} 件");
