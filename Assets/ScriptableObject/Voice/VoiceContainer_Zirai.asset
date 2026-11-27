@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798137c4500055c4587bd91f517f7197, type: 3}
-  m_Name: VoiceContainer
+  m_Name: VoiceContainer_Zirai
   m_EditorClassIdentifier: Assembly-CSharp::VoiceContainer
   _voiceEntries:
-  - Word: "\u3084\u3055\u3044"
-    Clip: {fileID: 0}
+  - Word: "\u30E4\u30B5\u30A4"
+    Clip: {fileID: 8300000, guid: 78cea5671cd64f249941770ead47028b, type: 3}
   - Word: "\u30CB\u30F3\u30CB\u30AF"
-    Clip: {fileID: 0}
+    Clip: {fileID: 8300000, guid: fa7109ff6b11c5246897cdc62b89b647, type: 3}
   - Word: "\u30A2\u30D6\u30E9"
-    Clip: {fileID: 0}
+    Clip: {fileID: 8300000, guid: 13d6a4379ea54de45b7f9009eddc04f8, type: 3}
   - Word: "\u30DE\u30B7"
-    Clip: {fileID: 0}
+    Clip: {fileID: 8300000, guid: 30e308f132dfe2647a7af21cb7f6f3be, type: 3}

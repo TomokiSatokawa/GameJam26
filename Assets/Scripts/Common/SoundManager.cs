@@ -7,9 +7,11 @@ namespace Common.Sound
     {
         [SerializeField] private SoundSection _bgm;
         [SerializeField] private SoundSection _se;
+        [SerializeField] private SoundSection _voice;
 
         public static IReadOnlySoundSection BGM;
         public static IReadOnlySoundSection SE;
+        public static IReadOnlySoundSection Voice;
 
         private void Awake()
         {
@@ -21,6 +23,7 @@ namespace Common.Sound
 
             BGM = _bgm;
             SE = _se;
+            Voice = _voice;
 
             DontDestroyOnLoad(this.gameObject);
         }
@@ -29,6 +32,7 @@ namespace Common.Sound
         {
              _bgm.Update();
             _se.Update();
+            _voice.Update();
         }
     }
 

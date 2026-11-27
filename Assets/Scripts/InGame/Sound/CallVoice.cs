@@ -23,7 +23,6 @@ namespace InGame.Order
 
         private void Awake()
         {
-            Initialize();
         }
 
         private void OnDestroy()
@@ -46,6 +45,12 @@ namespace InGame.Order
             }
         }
 
+        public void SetData(VoiceContainer voiceContainer)
+        {
+            _currentVoice = voiceContainer;
+            _clipMap.Clear();
+            Initialize();
+        }
         /// <summary>
         /// ƒR[ƒ‹‚ğ“Ç‚İã‚°‚éBÄ¶’†‚Ìê‡‚Í’†’f‚µ‚ÄÅ‰‚©‚çÄ¶‚·‚é
         /// </summary>
@@ -65,7 +70,7 @@ namespace InGame.Order
 
             foreach (var clip in clips)
             {
-                SoundManager.SE.PlayOneShot(clip,1f);
+                SoundManager.Voice.PlayOneShot(clip,1f);
                 await UniTask.Delay(TimeSpan.FromSeconds(clip.length + _clipInterval), cancellationToken: token);
             }
         }

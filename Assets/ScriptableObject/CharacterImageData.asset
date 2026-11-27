@@ -15,13 +15,19 @@ MonoBehaviour:
   _characterSprites:
   - normal: {fileID: 21300000, guid: 5348a8de3cd9cfa418d2753ee15889d7, type: 3}
     miss: {fileID: 21300000, guid: ef7c0cd4e48e6c8429964a13cf0d4f02, type: 3}
+    Voice: {fileID: 11400000, guid: b1eeb15f62cda1940a8527552573e08a, type: 2}
   - normal: {fileID: 21300000, guid: 229b9bc7d9cb8c245a730c8258713183, type: 3}
     miss: {fileID: 21300000, guid: 08a7452a06ead9e4686cbcf94b133f9d, type: 3}
+    Voice: {fileID: 11400000, guid: ab565d9fdd8cec74597bc37d3d8663bd, type: 2}
   - normal: {fileID: 21300000, guid: a863cfc8b637ee54291de8e19620b205, type: 3}
     miss: {fileID: 21300000, guid: be32ce09265ed3b4294dddead35164a7, type: 3}
+    Voice: {fileID: 11400000, guid: 0930441f7dd1c1e4aba19ddd3b47e3b5, type: 2}
   - normal: {fileID: 21300000, guid: 38e8d6256f6cd104580609c0c3649bf0, type: 3}
     miss: {fileID: 21300000, guid: 53e38886839571f47baeae4b053add60, type: 3}
+    Voice: {fileID: 11400000, guid: 6a0e20b9acb0f1f489df4accc0851482, type: 2}
   - normal: {fileID: 21300000, guid: 22b00bc74e5bc02478354629d290658d, type: 3}
     miss: {fileID: 21300000, guid: 54ce7aa56dda9a945ab9b2dbca2a80d2, type: 3}
+    Voice: {fileID: 11400000, guid: 4e0be06717206a2499cd86aae8f6b3ea, type: 2}
   - normal: {fileID: 21300000, guid: 78b40e548b0adf34c979042aaf361d9c, type: 3}
     miss: {fileID: 21300000, guid: 96917e304d52e3243bd3f68423d83006, type: 3}
+    Voice: {fileID: 11400000, guid: e0d23e606eeb32640bfe9c960857961e, type: 2}

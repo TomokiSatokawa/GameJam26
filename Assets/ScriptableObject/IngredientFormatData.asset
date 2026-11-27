@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientFormatData
   _suffixes:
   - _minCount: 2
-    _suffix: "\u30DE\u30B7"
+    _suffix: " \u30DE\u30B7"
   - _minCount: 3
-    _suffix: "\u30DE\u30B7\u30DE\u30B7"
+    _suffix: " \u30DE\u30B7 \u30DE\u30B7"
   - _minCount: 4
-    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
+    _suffix: " \u30DE\u30B7 \u30DE\u30B7 \u30DE\u30B7"
   - _minCount: 5
-    _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
+    _suffix: " \u30DE\u30B7 \u30DE\u30B7 \u30DE\u30B7 \u30DE\u30B7"
   - _minCount: 6
     _suffix: "\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7\u30DE\u30B7"
   - _minCount: 7
