@@ -23,9 +23,22 @@ namespace Common.Order
             }
 
             var parts = new List<string>();
-            AddPart(parts, _database.Yasai, orderData.YasaiCount);
-            AddPart(parts, _database.Ninniku, orderData.NinnikuCount);
-            AddPart(parts, _database.Abura, orderData.AburaCount);
+            foreach (var order in orderData.Entries)
+            {
+                switch (order.Ingredient)
+                {
+                    case Ingredients.Yasai:
+                        AddPart(parts, _database.Yasai, order.Count);
+                        break;
+                    case Ingredients.Ninniku:
+                        AddPart(parts, _database.Ninniku, order.Count);
+                        break;
+                    case Ingredients.Abura:
+                        AddPart(parts, _database.Abura, order.Count);
+                        break;
+
+                }
+            }
 
             return string.Join(" ", parts);
         }

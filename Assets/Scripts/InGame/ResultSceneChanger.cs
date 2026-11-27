@@ -1,3 +1,4 @@
+using Common.Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,8 @@ public class ResultSceneChanger : MonoBehaviour
     /// </summary>
     public void RetryGame()
     {
+        SoundManager.BGM.ChangeVolume(0, 1f);
+
         Time.timeScale = 1f;
         ScoreManager.ResetScore();
 
@@ -24,6 +27,8 @@ public class ResultSceneChanger : MonoBehaviour
     /// </summary>
     public void BackToTitle()
     {
+        SoundManager.BGM.ChangeVolume(0, 1f);
+
         Time.timeScale = 1f;
         ScoreManager.ResetScore();
 
