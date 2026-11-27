@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PrefabSpawner _prefabSpawner;
     [SerializeField] private IngredientsGenerator _ingredientsGenerator;
     [SerializeField] private CountdownView _countdownView;
-    [SerializeField ] private GameEndView _gameEndView;
+    [SerializeField] private GameEndView _gameEndView;
     [SerializeField] private OrderLevelDatabase _orderLevelDatabase;
     [SerializeField] private CallVoice _callVoice;
     [SerializeField] private ScoreUI _scoreUI;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     private async UniTaskVoid Initialize()
     {
-        var token =   _ingredientsGenerator.IgnoreInput.RegisterFlag();
+        var token = _ingredientsGenerator.IgnoreInput.RegisterFlag();
         _speechBubble.HideSpeechBubbleImmediate();
         timerManager.StartTimer();
         ScoreManager.ResetScore();
@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     public async UniTaskVoid EndGame() //ゲームを終了してリザルトにする
     {
+        _callVoice.CancelCurrent();
         currentState = GameState.Result;
         timerManager.PauseTimer(false);
         _ingredientsGenerator.IgnoreInput.RegisterFlag();
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
             return;
 
         SoundManager.SE.PlayOneShot(SEType.CustomerClear);
-
+           _callVoice.CancelCurrent();
         currentState = GameState.Moving;
         _speechBubble.HideSpeechBubble();
         _prefabSpawner.SpawnNext();

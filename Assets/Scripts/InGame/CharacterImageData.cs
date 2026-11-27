@@ -17,4 +17,5 @@ public class DifferentExpressions
 {
     public Sprite normal;
     public Sprite miss;
+    public VoiceContainer Voice;
 }

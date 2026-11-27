@@ -18,6 +18,8 @@ public class CharacterGenerate : InitializableBase
     [Tooltip("ミス表情を表示する時間(秒)")]
     [SerializeField] private float _missDuration = 1.0f;
 
+    public DifferentExpressions DifferentExpressions { get; private set; }
+
     /// <summary>このスクリプトでScriptableObjectから指定するインデックス番号（ランダム）</summary>
     private int _index;
 
@@ -35,7 +37,8 @@ public class CharacterGenerate : InitializableBase
         _index = UnityEngine.Random.Range(0, max);
 
         // スプライトをランダムに変更
-        _spriteRenderer.sprite = _characterSprite.CharacterSprites[_index].normal;
+     DifferentExpressions   = _characterSprite.CharacterSprites[_index];
+        _spriteRenderer.sprite = DifferentExpressions.normal;
     }
 
     /// <summary>
@@ -54,7 +57,7 @@ public class CharacterGenerate : InitializableBase
 
     private async UniTaskVoid ShowMissAsync(CancellationToken token)
     {
-        _spriteRenderer.sprite = _characterSprite.CharacterSprites[_index].miss;
+        _spriteRenderer.sprite = DifferentExpressions.miss;
 
         // キャンセルされたら例外を投げずにfalseが返る
         bool canceled = await UniTask.Delay(TimeSpan.FromSeconds(_missDuration), cancellationToken: token)
@@ -64,7 +67,7 @@ public class CharacterGenerate : InitializableBase
             return;
         }
 
-        _spriteRenderer.sprite = _characterSprite.CharacterSprites[_index].normal;
+        _spriteRenderer.sprite = DifferentExpressions.normal;
     }
 
     private void CancelMiss()
