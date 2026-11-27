@@ -1,15 +1,15 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+
 public class RankingItem : MonoBehaviour
 {
-    public TextMeshProUGUI rankText;
-    public TextMeshProUGUI playerNameText;
-    public TextMeshProUGUI customerCountText;
+    [SerializeField] private TextMeshProUGUI _rankText;
+
+    [SerializeField] private TextMeshProUGUI _scoreText;
 
     public void SetData(int rank, RankingEntry entry)
     {
-        rankText.text = rank + "à ";
-        playerNameText.text = entry.playerName;
-        customerCountText.text = entry.customerCount + "êl";
+        if (_rankText != null) _rankText.text = $"{rank}‰Ωç";
+        if (_scoreText != null) _scoreText.text = $"{entry.totalScore}ÁÇπ";
     }
 }

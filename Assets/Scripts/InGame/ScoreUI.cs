@@ -35,6 +35,10 @@ public class ScoreUI : MonoBehaviour
 
     public void ShowResult()
     {
+        if (rankingManager != null)
+        {
+            rankingManager.SaveCurrentScore();
+        }
         // インゲームUIを隠してリザルトパネルを表示
         if (inGamePanel != null) inGamePanel.SetActive(false);
         if (resultPanel != null) resultPanel.SetActive(true);
@@ -46,4 +50,7 @@ public class ScoreUI : MonoBehaviour
         ninnikuScore.SetData(ScoreManager.NinnikuScore);
         aburaScore.SetData(ScoreManager.AburaScore);
     }
+    // ScoreUI.cs のフィールドに追加
+    public RankingManager rankingManager;
+
 }

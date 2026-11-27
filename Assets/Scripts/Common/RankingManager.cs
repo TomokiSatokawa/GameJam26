@@ -4,48 +4,46 @@ using UnityEngine;
 
 public class RankingManager : MonoBehaviour
 {
-    private string savePath;
+    [SerializeField] private int _maxRankCount = 10;
 
-    private void Awake()
-    {
-        savePath = Path.Combine(
-            Application.persistentDataPath,
-            "ranking.dat"
-        );
-    }
+    private string SavePath => Path.Combine(Application.persistentDataPath, "ranking.json");
 
-    public void AddRanking()
+    public void SaveCurrentScore()
     {
         RankingData data = LoadRanking();
-        RankingEntry entry = new RankingEntry();
 
-        entry.playerName = "player";
-        entry.customerCount = ScoreManager.CustomerCount;
-        data.rankings.Add(entry);
-        SaveRanking(data);
-    }
+        RankingEntry newEntry = new RankingEntry
+        {
+            customerCount = ScoreManager.CustomerCount,
+            totalScore = ScoreManager.TotalScore
+        };
 
-    public void SaveRanking(RankingData data)
-    {
+        data.rankings.Add(newEntry);
+
         data.rankings = data.rankings
-            .OrderByDescending(x => x.customerCount)
-            .Take(20)
+            .OrderByDescending(x => x.totalScore)
+            .ThenByDescending(x => x.customerCount)
+            .Take(_maxRankCount)
             .ToList();
 
-        string json = JsonUtility.ToJson(data);
-        string encrypatedData = AESCipher.Encrypt(json);
-        File.WriteAllText(savePath, encrypatedData);
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(SavePath, json);
+
+        // ★保存成功確認ログ
+        Debug.Log($"[Ranking] 保存完了！ スコア:{newEntry.totalScore} / 保存先:{SavePath}");
     }
 
     public RankingData LoadRanking()
     {
-        if(!File.Exists(savePath))
+        if (!File.Exists(SavePath))
         {
+            Debug.Log($"[Ranking] 保存ファイルがまだありません: {SavePath}");
             return new RankingData();
         }
 
-        string encrypatedData = File.ReadAllText(savePath);
-        string json = AESCipher.Decrypt(encrypatedData);
-        return JsonUtility.FromJson<RankingData>(json);
+        string json = File.ReadAllText(SavePath);
+        RankingData data = JsonUtility.FromJson<RankingData>(json);
+        Debug.Log($"[Ranking] 読み込み成功！ 件数:{data?.rankings.Count ?? 0}件");
+        return data ?? new RankingData();
     }
 }
