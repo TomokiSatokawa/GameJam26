@@ -80,16 +80,16 @@ MonoBehaviour:
         _type:
           _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
           _guid: 4862002b5fbe4750b6bfb716aca20d00
-        _volume: 1
+        _volume: 0.85
         _clipEntry:
         - _clip: {fileID: 8300000, guid: e179ee979b8fb1c45b554e5e9a6d6c47, type: 3}
-          _volume: 1
+          _volume: 0.65
           _weight: 1
         - _clip: {fileID: 8300000, guid: 0b043f18e3d91f144af52336bae4d24a, type: 3}
-          _volume: 1
+          _volume: 0.65
           _weight: 1
         - _clip: {fileID: 8300000, guid: 1328be0ef7db76d4791dc2910761cf9e, type: 3}
-          _volume: 1
+          _volume: 0.65
           _weight: 1
     - rid: 7286859983195209982
       type: {class: SoundDatabase/SingleClipData, ns: CoreKit.Sound, asm: CoreKit}
@@ -105,7 +105,7 @@ MonoBehaviour:
         _type:
           _definition: {fileID: 11400000, guid: 9911dee788bf03542ad67f572094efdd, type: 2}
           _guid: ecaa90edb5764154b750b62de6e4dcc2
-        _volume: 1
+        _volume: 0.2
         _clip: {fileID: 8300000, guid: 56ae95b1056e7834493ad46e8777fd76, type: 3}
     - rid: 7286859993294569858
       type: {class: RandomClipData, ns: CoreKit.Sound, asm: CoreKit}
@@ -113,14 +113,14 @@ MonoBehaviour:
         _type:
           _definition: {fileID: 11400000, guid: 70299e2bebd956c4ea43a57670ed4f92, type: 2}
           _guid: add030bc77324a208c827e0bf0f27569
-        _volume: 0.837
+        _volume: 0.8
         _clipEntry:
         - _clip: {fileID: 8300000, guid: a9f2be6ed9e4562438149e58b20c17a9, type: 3}
-          _volume: 1
+          _volume: 0.65
           _weight: 1
         - _clip: {fileID: 8300000, guid: 38a9db2d7f5e7de4b9b70dd2fe0c6543, type: 3}
-          _volume: 1
+          _volume: 0.65
           _weight: 1
         - _clip: {fileID: 8300000, guid: e9d6e1612e6714f4fa2fd3522046a15e, type: 3}
-          _volume: 1
+          _volume: 0.65
           _weight: 1
