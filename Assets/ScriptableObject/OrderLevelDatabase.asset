@@ -13,46 +13,20 @@ MonoBehaviour:
   m_Name: OrderLevelDatabase
   m_EditorClassIdentifier: Assembly-CSharp::OrderLevelDatabase
   _levels:
+  - _minTotal: 3
+    _maxTotal: 5
+  - _minTotal: 4
+    _maxTotal: 8
+  - _minTotal: 5
+    _maxTotal: 10
   - _minTotal: 7
+    _maxTotal: 12
+  - _minTotal: 10
+    _maxTotal: 15
+  - _minTotal: 13
     _maxTotal: 19
   - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
-  - _minTotal: 7
-    _maxTotal: 19
+    _maxTotal: 25
   _levelCount: 20
   _minCurve:
     serializedVersion: 2

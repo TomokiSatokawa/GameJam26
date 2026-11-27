@@ -3743,6 +3743,7 @@ GameObject:
   - component: {fileID: 9045124318531199339}
   - component: {fileID: 6878836501149611}
   - component: {fileID: 2753279756007126797}
+  - component: {fileID: 406261658540447989}
   m_Layer: 5
   m_Name: ScoreManeger
   m_TagString: Untagged
@@ -3805,7 +3806,7 @@ MonoBehaviour:
   yasaiScore: {fileID: 207289676152005295}
   ninnikuScore: {fileID: 1509358056102668022}
   aburaScore: {fileID: 1167377457460387582}
-  rankingManager: {fileID: 0}
+  rankingManager: {fileID: 406261658540447989}
 --- !u!114 &2753279756007126797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3819,6 +3820,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResultSceneChanger
   _titleSceneName: Title
+--- !u!114 &406261658540447989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037895207454140120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de90becc626a9146aff388705c9b4aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RankingManager
+  _maxRankCount: 10
 --- !u!1 &9198986444556490078
 GameObject:
   m_ObjectHideFlags: 0
