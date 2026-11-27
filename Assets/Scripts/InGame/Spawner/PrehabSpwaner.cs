@@ -5,6 +5,7 @@ public class PrefabSpawner : MonoBehaviour
 {
     [Header("生成プレハブ設定")]
     [SerializeField] private StageUnit _stagePrefab;
+    [SerializeField] private ToppingCounter _counter;
     [SerializeField] private Vector3 _centerStartPosition;
     [SerializeField] private int _maxKeepCount = 3;
     [SerializeField] private float _interval;
@@ -51,6 +52,8 @@ public class PrefabSpawner : MonoBehaviour
             obj.Initialize();
             _spawnIndex++;
         }
+
+        _counter.penalty += () => CurrentStage?.Fall();
     }
 
     public void SpawnNext()

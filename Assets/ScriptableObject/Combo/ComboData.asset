@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b371315f2e8b3c543bbc041fe5c0863b, type: 3}
   m_Name: ComboData
   m_EditorClassIdentifier: Assembly-CSharp::ComboData
-  maxCombo: 50
+  maxCombo: 30
   milestones:
-  - combo: 10
+  - combo: 6
+    bonusSeconds: 1
+  - combo: 18
     bonusSeconds: 2
-  - combo: 25
+  - combo: 30
     bonusSeconds: 3
-  - combo: 50
-    bonusSeconds: 5

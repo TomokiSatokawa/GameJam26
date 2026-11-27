@@ -1070,6 +1070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrefabSpawner
   _stagePrefab: {fileID: 5820236274922476274, guid: 3fe8a8ecc0a312a479932ec4142dae90, type: 3}
+  _counter: {fileID: 1031447845}
   _centerStartPosition: {x: 0, y: 0, z: 0}
   _maxKeepCount: 3
   _interval: 9
@@ -1882,10 +1883,6 @@ PrefabInstance:
     - target: {fileID: 5831453548182251501, guid: fdcb98b685b1ea047bf2f756a1e30cb0, type: 3}
       propertyPath: m_Name
       value: Sound
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831453548182251501, guid: fdcb98b685b1ea047bf2f756a1e30cb0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: CharacterImageData
   m_EditorClassIdentifier: Assembly-CSharp::CharacterImageData
   _characterSprites:
-  - normal: {fileID: 21300000, guid: 63998a5c783a3a94e9e76f34badfa4b0, type: 3}
-    miss: {fileID: 0}
-  - normal: {fileID: 21300000, guid: 834da581ba3b57f4aa7dd60c2fccf604, type: 3}
-    miss: {fileID: 0}
-  - normal: {fileID: 21300000, guid: a734cc320d602a34f94d13bf7aaca8a9, type: 3}
-    miss: {fileID: 21300000, guid: b2f1868c9d03983469155e94a2ba6ae7, type: 3}
-  - normal: {fileID: 21300000, guid: d92d36162723ddb478534f91305e3e70, type: 3}
-    miss: {fileID: 0}
-  - normal: {fileID: 21300000, guid: 736cc7ff4646aa54dbf28780e370f45b, type: 3}
-    miss: {fileID: 0}
-  - normal: {fileID: 21300000, guid: 5bf787900a7e7014bb8239a99f361367, type: 3}
-    miss: {fileID: 0}
+  - normal: {fileID: 21300000, guid: 5348a8de3cd9cfa418d2753ee15889d7, type: 3}
+    miss: {fileID: 21300000, guid: ef7c0cd4e48e6c8429964a13cf0d4f02, type: 3}
+  - normal: {fileID: 21300000, guid: 229b9bc7d9cb8c245a730c8258713183, type: 3}
+    miss: {fileID: 21300000, guid: 08a7452a06ead9e4686cbcf94b133f9d, type: 3}
+  - normal: {fileID: 21300000, guid: a863cfc8b637ee54291de8e19620b205, type: 3}
+    miss: {fileID: 21300000, guid: be32ce09265ed3b4294dddead35164a7, type: 3}
+  - normal: {fileID: 21300000, guid: 38e8d6256f6cd104580609c0c3649bf0, type: 3}
+    miss: {fileID: 21300000, guid: 53e38886839571f47baeae4b053add60, type: 3}
+  - normal: {fileID: 21300000, guid: 22b00bc74e5bc02478354629d290658d, type: 3}
+    miss: {fileID: 21300000, guid: 54ce7aa56dda9a945ab9b2dbca2a80d2, type: 3}
+  - normal: {fileID: 21300000, guid: 78b40e548b0adf34c979042aaf361d9c, type: 3}
+    miss: {fileID: 21300000, guid: 96917e304d52e3243bd3f68423d83006, type: 3}
