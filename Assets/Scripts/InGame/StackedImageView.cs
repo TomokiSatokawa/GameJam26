@@ -43,7 +43,7 @@ namespace Common.UI
             CancelAnimation();
             _cts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
 
-            _countText.text = count.ToString();
+            _countText.text = count.ToString() + "コ";
             HideAll();
 
             PlayAsync(count, _cts.Token).Forget();
@@ -64,7 +64,11 @@ namespace Common.UI
                 }
 
                 Image image = _images[i];
-                image.rectTransform.anchoredPosition = new Vector2(0f, _interval * i);
+                // 横ランダム・回転ランダム
+                int randomX = UnityEngine.Random.Range(-60, 60);
+                float randomRot = UnityEngine.Random.Range(-70f, 70f);
+                image.rectTransform.anchoredPosition = new Vector2(randomX, _interval * i);
+                image.rectTransform.Rotate(new Vector3(0f, 0f, randomRot));
                 image.gameObject.SetActive(true);
 
                 if (await WaitAsync(_itemDelay, token))
