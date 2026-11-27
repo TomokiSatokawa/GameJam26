@@ -2,6 +2,7 @@ using Common.Order;
 using Common.Sound;
 using Cysharp.Threading.Tasks;
 using Generated.DynamicEnums;
+using InGame.Order;
 using InGame.UI;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CountdownView _countdownView;
     [SerializeField ] private GameEndView _gameEndView;
     [SerializeField] private OrderLevelDatabase _orderLevelDatabase;
+    [SerializeField] private CallVoice _callVoice;
     [SerializeField] private ScoreUI _scoreUI;
     [SerializeField] private int _maxCount;
     [SerializeField] private float _waitTime;
@@ -64,7 +66,9 @@ public class GameManager : MonoBehaviour
     private void ResetCustomer()
     {
         var orderData = _orderLevelDatabase.CreateOrderData(ScoreManager.CustomerCount);
-        _speechBubble.ShowSpeechBubble(_orderFormatter.Format(orderData), orderData);
+        string text = _orderFormatter.Format(orderData);
+        _speechBubble.ShowSpeechBubble(text, orderData);
+        _callVoice.Call(text);
         _toppingCounter.SetData(orderData);
         timerManager.ResetCustomerTimer(); //お客の制限時間を10秒に戻す
     }
