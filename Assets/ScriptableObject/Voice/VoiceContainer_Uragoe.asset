@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VoiceContainer
   _voiceEntries:
   - Word: "\u30E4\u30B5\u30A4"
-    Clip: {fileID: 8300000, guid: a879658b65a19a44e86c1868ed430cc3, type: 3}
+    Clip: {fileID: 8300000, guid: c565971c724177d4eba8829dfedc5996, type: 3}
   - Word: "\u30CB\u30F3\u30CB\u30AF"
-    Clip: {fileID: 8300000, guid: a5d607dec2e6c004c9f907e41dee2c43, type: 3}
+    Clip: {fileID: 8300000, guid: 839635ab9f89510489a6e189091a76b0, type: 3}
   - Word: "\u30A2\u30D6\u30E9"
-    Clip: {fileID: 8300000, guid: 8aab3db53ff97c343825f9ff5a663f69, type: 3}
+    Clip: {fileID: 8300000, guid: b9850d19a7a8e3148aa71447d7fe0ec4, type: 3}
   - Word: "\u30DE\u30B7"
-    Clip: {fileID: 8300000, guid: 31990e7b8981d2849bc2f53829431ad6, type: 3}
+    Clip: {fileID: 8300000, guid: 3d99b2e3cf162b84ebed779d4e641088, type: 3}
